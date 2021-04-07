@@ -406,7 +406,19 @@ def open_window_add_fermat():
 
 
 def open_window_add_euler():
-    pass
+    layout = [
+        [sg.Text('Enter number')],
+        [sg.Input(key='dig1')],
+        [sg.Button('Do it', key='start')],
+        [sg.Text(size=(400, 10), key='out')]
+    ]
+    window = sg.Window('Euler`s method', layout, size=(460, 260), resizable=True)
+    while True:
+        event, values = window.read()
+        if event == "start":
+            window['out'].update(int(values['dig1']))
+        if event == sg.WINDOW_CLOSED:
+            break
 
 
 def open_window_add_apprRoots():

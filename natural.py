@@ -17,5 +17,5 @@ def COM_NN_D(x, y):
 def MUL_Nk_N(k, list0):
     list1 = [0]*k
     list0.extend(list1)
-    retunr list0
+    return list0
 #------------------------------------

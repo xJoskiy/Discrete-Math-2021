@@ -32,3 +32,21 @@ def ADD_QQ_Q(ch1, zn1, ch2, zn2):
     return newCh, nok
 
 
+def TRANS_Z_Q(x):
+    # Артамонов Артур, гр.0306
+    # Преобразование целого в дробное
+
+    x.append("/")
+    x.append(1)
+
+    return x
+
+
+def TRANS_Q_Z(x):
+    # Артамонов Артур, гр.0306
+    # Преобразование дробного в целое, если знам. = 1
+
+    if x[-1] == 1:
+        if x[-2] == '/':
+            x = x[:-2]
+    return x

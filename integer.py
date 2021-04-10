@@ -15,7 +15,7 @@ def ADD_ZZ_Z(b1, n1, list1, b2, n2, list2):
         str2 = "-" + str2
     num2 = int(str2)
     if f1.POZ_Z_D(num1) == 2 and f1.POZ_Z_D(num2) == 2:
-        res = f1.ADD_NN_N(num1,num2)
+        res = f1.ADD_NN_N(num1, num2)
     if f1.POZ_Z_D(num1) == 1 and f1.POZ_Z_D(num2) == 1:
         mod1 = f1.ABS_Z_N(num1)
         mod2 = f1.ABS_Z_N(num2)

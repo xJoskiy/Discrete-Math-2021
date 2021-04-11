@@ -63,5 +63,19 @@ def MOD_NN_N(x, y):
     mod = SUB_NDN_N(x, ch, y)  # Нахождение остатка. Пример: 53 mod 3 = 2. Тогда ch = 53/3 = 17. mod = 53 - 17*3 = 2
 
     return mod
-
-
+def GCF_NN_N(n1, list1, n2, list2):
+    #Дашкин Дамир
+    #Нахождение НОД по алгоритму Евклида, используя остаток от деления одного числа на другое
+    str1 = ""
+    str2 = ""
+    for i in range(len(list1)):
+        str1 = str1 + str(list1[i])
+    for j in range(len(list2)):
+        str2 = str2 + str(list2[j])
+    num1, num2 = int(str1), int(str2)
+    while NZER_N_B(num1) == "Нет" and NZER_N_B(num2) == "Нет":
+        if COM_NN_D(num1, num2) == 2:
+            num2 = MOD_NN_N(num2, num1)
+        else:
+            num1 = MOD_NN_N(num1, num2)
+    return num1+num2

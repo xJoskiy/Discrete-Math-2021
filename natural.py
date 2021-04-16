@@ -60,9 +60,50 @@ def MOD_NN_N(x, y):
     # Остаток от деления большего натурального числа на меньшее или равное натуральное с остатком(делитель отличен от нуля)
 
     ch = DIV_NN_N(x, y)  # Нахождение неполного частного
-    mod = SUB_NDN_N(x, ch, y)  # Нахождение остатка. Пример: 53 mod 3 = 2. Тогда ch = 53/3 = 17. mod = 53 - 17*3 = 2
-
+    mod = SUB_NDN_N(x, ch, y)  # Нахождение остатка. Пример: 53 mod 3 = 2. Тогда ch = 53/3 = 17. mod = 53 - 17 * 3 = 2
     return mod
+
+def ADD_NN_N(mas1,mas2):
+    # Семёнов Михаил
+    # Сложение натуральных чисел
+    plus1 = 0
+    mas1 = mas1[::-1]
+    mas2 = mas2[::-1]
+    
+    rez_com_nn_d = COM_NN_D(mas1,mas2)
+    
+    if rez_com_nn_d == 0 or rez_com_nn_d == 2:
+        length=len(mas1)
+        min_length = len(mas2)
+        if rez_com_nn_d == 2 :
+            flag = 2
+        else :
+            flag = 0
+    elif rez_com_nn_d == 1 :
+        length=len(mas2)
+        min_length = len(mas1)
+        flag =1 
+
+    mas_rez = [0] * (length + 1)
+    for j in range (min_length):
+        mas_rez[j] = (int(mas1[j]) + int(mas2[j]) + plus1) % 10
+        plus1 = (int(mas1[j]) + int(mas2[j]) + plus1) // 10 
+    if flag == 2:
+        for i in range (length - min_length):
+            mas_rez[j + i + 1] = (int(mas1[j + i + 1])+plus1) % 10
+            plus1 = (int(mas1[j + i + 1])+plus1) // 10
+    if flag == 1:
+        for i in range (length - min_length):
+            mas_rez[j+i+1] = (int(mas2[j + i + 1]) + plus1) % 10
+            plus1 = (int(mas2[j+i+1]) + plus1) // 10
+    if plus1 == 0:
+        mas_rez = mas_rez[0:len(mas_rez) - 1]
+    else:
+        mas_rez[-1] = 1
+    mas_rez = mas_rez[::-1]
+    
+    return("".join(map(str,mas_rez)))
+  
 def GCF_NN_N(n1, list1, n2, list2):
     #Дашкин Дамир
     #Нахождение НОД по алгоритму Евклида, используя остаток от деления одного числа на другое
@@ -78,4 +119,4 @@ def GCF_NN_N(n1, list1, n2, list2):
             num2 = MOD_NN_N(num2, num1)
         else:
             num1 = MOD_NN_N(num1, num2)
-    return num1+num2
+    return num1 + num2

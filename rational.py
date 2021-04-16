@@ -15,6 +15,28 @@ def RED_Q_Q(Q):
 # Числитель и знаменатель делятся на НОД знаменателя и числителя(числитель преобразуется к натуральному числу при помощи
 # функции ABS_Z_N)
 
+def ADD_QQ_Q(list1, list2):
+# Пекло Елизавета
+# Сложение дробей
+    for i in range (len(list1)):
+        if list1[i] == " ":
+            ch1 = list1[:i]
+            zn1 = list1[i+1:]
+    for i in range (len(list2)):
+        if list2[i] == " ":
+            ch2 = list2[:i]
+            zn2 = list2[i+1:]
+# НОК и есть новый знаменатель дробей
+    nok = LCM_NN_N(zn1, zn2)
+# Находим множители при числителях дробей
+    mn1 = DIV_ZZ_Z(nok, zn1)
+    mn2 = DIV_ZZ_Z(nok, zn2)
+# Находим сами числители, а затем и их сумму
+    ch1 = MUL_ZZ_Z(ch1, mn1)
+    ch2 = MUL_ZZ_Z(ch2, mn2)
+    newCh = ADD_ZZ_Z(ch1, ch2)
+# Возвращаем новые числитель и знаменатель
+    return newCh, nok
 
 def MUL_QQ_Q(rational1,rational2): # на вход функция получает 2 рациональных числа
     # Семёнов Михаил
@@ -52,3 +74,23 @@ def MUL_QQ_Q(rational1,rational2): # на вход функция получае
     rational_itog = RED_Q_Q(rational) # сокращение дроби
     
     return rational_itog
+  
+
+def TRANS_Z_Q(x):
+    # Артамонов Артур, гр.0306
+    # Преобразование целого в дробное
+
+    x.append("/")
+    x.append(1)
+
+    return x
+
+
+def TRANS_Q_Z(x):
+    # Артамонов Артур, гр.0306
+    # Преобразование дробного в целое, если знам. = 1
+
+    if x[-1] == 1:
+        if x[-2] == '/':
+            x = x[:-2]
+    return x

@@ -16,7 +16,7 @@ def COM_NN_D(x, y):
 
 def MUL_Nk_N(k, list0):
     # Пекло Елизавета
-    #Умножение натурального целого на 10^k
+    # Умножение натурального целого на 10^k
     list1 = [0]*k
     list0.extend(list1)
     return list0
@@ -24,11 +24,11 @@ def MUL_Nk_N(k, list0):
 
 def LCM_NN_N(a,b):
     # Пекло Елизавета
-    #Нахождения НОК двух натуральных
+    # Нахождения НОК двух натуральных
     # НОК = А*Б:НОД
-    nod = GCF_NN_N(a,b)
-    multp = MUL_NN_N(a,b)
-    nok = DIV_NN_N(multp,nod)
+    nod = GCF_NN_N(a, b)
+    multp = MUL_NN_N(a, b)
+    nok = DIV_NN_N(multp, nod)
     return nok
 
     

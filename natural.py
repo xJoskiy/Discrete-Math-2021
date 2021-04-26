@@ -17,12 +17,12 @@ def COM_NN_D(x, y):
 def MUL_Nk_N(k, list0):
     # Пекло Елизавета
     # Умножение натурального целого на 10^k
-    list1 = [0]*k
+    list1 = [0] * k
     list0.extend(list1)
     return list0
 
 
-def LCM_NN_N(a,b):
+def LCM_NN_N(a, b):
     # Пекло Елизавета
     # Нахождения НОК двух натуральных
     # НОК = А*Б:НОД
@@ -63,37 +63,38 @@ def MOD_NN_N(x, y):
     mod = SUB_NDN_N(x, ch, y)  # Нахождение остатка. Пример: 53 mod 3 = 2. Тогда ch = 53/3 = 17. mod = 53 - 17 * 3 = 2
     return mod
 
-def ADD_NN_N(mas1,mas2):
+
+def ADD_NN_N(mas1, mas2):
     # Семёнов Михаил
     # Сложение натуральных чисел
     plus1 = 0
     mas1 = mas1[::-1]
     mas2 = mas2[::-1]
     
-    rez_com_nn_d = COM_NN_D(mas1,mas2)
+    rez_com_nn_d = COM_NN_D(mas1, mas2)
     
     if rez_com_nn_d == 0 or rez_com_nn_d == 2:
-        length=len(mas1)
+        length = len(mas1)
         min_length = len(mas2)
-        if rez_com_nn_d == 2 :
+        if rez_com_nn_d == 2:
             flag = 2
-        else :
+        else:
             flag = 0
-    elif rez_com_nn_d == 1 :
-        length=len(mas2)
+    elif rez_com_nn_d == 1:
+        length = len(mas2)
         min_length = len(mas1)
-        flag =1 
+        flag = 1
 
     mas_rez = [0] * (length + 1)
-    for j in range (min_length):
+    for j in range(min_length):
         mas_rez[j] = (int(mas1[j]) + int(mas2[j]) + plus1) % 10
         plus1 = (int(mas1[j]) + int(mas2[j]) + plus1) // 10 
     if flag == 2:
-        for i in range (length - min_length):
+        for i in range(length - min_length):
             mas_rez[j + i + 1] = (int(mas1[j + i + 1])+plus1) % 10
             plus1 = (int(mas1[j + i + 1])+plus1) // 10
     if flag == 1:
-        for i in range (length - min_length):
+        for i in range(length - min_length):
             mas_rez[j+i+1] = (int(mas2[j + i + 1]) + plus1) % 10
             plus1 = (int(mas2[j+i+1]) + plus1) // 10
     if plus1 == 0:
@@ -101,13 +102,13 @@ def ADD_NN_N(mas1,mas2):
     else:
         mas_rez[-1] = 1
     mas_rez = mas_rez[::-1]
-    
-    return("".join(map(str,mas_rez)))
-  
+    return "".join(map(str, mas_rez))
+
+
 def GCF_NN_N(n1, list1, n2, list2):
-    #Дашкин Дамир
-    #Нахождение НОД по алгоритму Евклида, используя остаток от деления одного числа на другое
-    str1 = ""
+    # Дашкин Дамир
+    # Нахождение НОД по алгоритму Евклида, используя остаток от деления одного числа на другое
+    str1 = "" 
     str2 = ""
     for i in range(len(list1)):
         str1 = str1 + str(list1[i])

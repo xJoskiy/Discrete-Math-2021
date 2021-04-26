@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-
+import natural as nat
 
 def open_window_nat_sum():
     layout = [
@@ -13,7 +13,7 @@ def open_window_nat_sum():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+            window['out'].update(nat.ADD_NN_N(values['dig1'], values['dig2']))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -30,7 +30,7 @@ def open_window_nat_sub():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) - int(values['dig2']))
+            window['out'].update(nat.SUB_NN_N)
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -47,7 +47,7 @@ def open_window_nat_prod():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) * int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -64,7 +64,7 @@ def open_window_nat_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) / int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -81,7 +81,7 @@ def open_window_nat_mod():
     while True:
         event, values = window.read()
         if event == "start":
-            pass
+            window['out'].update(nat.MOD_NN_N(values['dig1'], values['dig2']))
         if event == sg.WINDOW_CLOSED:
             break
 

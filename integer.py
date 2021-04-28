@@ -1,4 +1,5 @@
-import natural as f1
+from natural import *
+
 def POZ_Z_D(mas): # на вход функция получает целое число
     # Семёнов Михаил
     # Знак целого числа
@@ -11,7 +12,7 @@ def POZ_Z_D(mas): # на вход функция получает целое ч�
     return res
 
 
-def SUB_ZZ_Z(celoe1,celoe2): # на вход функция получает 2 целых числа
+def SUB_ZZ_Z(celoe1, celoe2): # на вход функция получает 2 целых числа
     # Семёнов Михаил
     # Вычитание целых чисел
     poz1 = POZ_Z_D(celoe1) # выясняем знак числа 1
@@ -94,32 +95,33 @@ def ADD_ZZ_Z(b1, n1, list1, b2, n2, list2):
     if b2 == 1:
         str2 = "-" + str2
     num2 = int(str2)
-    if f1.POZ_Z_D(num1) == 2 and f1.POZ_Z_D(num2) == 2:
-        res = f1.ADD_NN_N(num1, num2)
-    if f1.POZ_Z_D(num1) == 1 and f1.POZ_Z_D(num2) == 1:
-        mod1 = f1.ABS_Z_N(num1)
-        mod2 = f1.ABS_Z_N(num2)
-        res = f1.ADD_NN_N(mod1, mod2)
-        res = f1.MUL_ZM_Z(res)
+    if POZ_Z_D(num1) == 2 and POZ_Z_D(num2) == 2:
+        res = ADD_NN_N(num1, num2)
+    if POZ_Z_D(num1) == 1 and POZ_Z_D(num2) == 1:
+        mod1 = ABS_Z_N(num1)
+        mod2 = ABS_Z_N(num2)
+        res = ADD_NN_N(mod1, mod2)
+        res = MUL_ZM_Z(res)
     else:
-        mod1 = f1.ABS_Z_N(num1)
-        mod2 = f1.ABS_Z_N(num2)
-        if f1.COM_NN_D(mod1, mod2) == 2:
-            if f1.POZ_Z_D(num1) == 1:
-                res = f1.SUB_NN_N(mod1, mod2)
-                res = f1.MUL_ZM_Z(res)
-            else:
-                res = f1.SUB_NN_N(mod1, mod2)
-        if f1.COM_NN_D(mod1, mod2) == 1:
-            if f1.POZ_Z_D(num2) == 1:
-                res = f1.SUB_NN_N(mod2, mod1)
+        mod1 = ABS_Z_N(num1)
+        mod2 = ABS_Z_N(num2)
+        if COM_NN_D(mod1, mod2) == 2:
+            if POZ_Z_D(num1) == 1:
+                res = SUB_NN_N(mod1, mod2)
                 res = MUL_ZM_Z(res)
             else:
-                res = f1.SUB_NN_N(mod2, mod1)
+                res = SUB_NN_N(mod1, mod2)
+        if COM_NN_D(mod1, mod2) == 1:
+            if POZ_Z_D(num2) == 1:
+                res = SUB_NN_N(mod2, mod1)
+                res = MUL_ZM_Z(res)
+            else:
+                res = SUB_NN_N(mod2, mod1)
         else:
             res = 0
     return res
-  
+
+
 def MOD_ZZ_Z(b1, n1, list1, b2, n2, list2):
     #Дашкин Дамир
     #Остаток от деления целых чисел

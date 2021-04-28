@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 import natural as nat
 
+
 def open_window_nat_sum():
     layout = [
         [sg.Text('Enter two naturals')],
@@ -30,7 +31,7 @@ def open_window_nat_sub():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.SUB_NN_N)
+            window['out'].update(nat.SUB_NN_N(values['dig1'], values['dig2']))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -47,7 +48,7 @@ def open_window_nat_prod():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update()
+            window['out'].update(nat.MUL_NN_N(values['dig1'], values['dig2']))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -64,7 +65,7 @@ def open_window_nat_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update()
+            window['out'].update(nat.DIV_NN_N(values['dig1'], values['dig2']))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -96,9 +97,9 @@ def open_window_nat_gcd():
     ]
     window = sg.Window('Greatest Common Divisor of natural numbers', layout, size=(460, 260), resizable=True)
     while True:
-        event, values = window.read()
+        event, values = window.read(nat.GCF_NN_N(values['dig1'], values['dig2']))
         if event == "start":
-            pass
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -147,7 +148,7 @@ def open_window_int_sum():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -164,7 +165,7 @@ def open_window_int_sub():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) - int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -181,7 +182,7 @@ def open_window_int_prod():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) * int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -198,7 +199,7 @@ def open_window_int_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) / int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -215,7 +216,7 @@ def open_window_int_exp():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) / int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -231,7 +232,7 @@ def open_window_int_shortForm():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -248,7 +249,7 @@ def open_window_rat_sum():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 

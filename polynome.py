@@ -1,9 +1,17 @@
+
+
+        else:
+            s += str1[i]
+    return s
+
+
 def MUL_PQ_P(P, Q):
     for index in range(0, P[0]):
         P[1][index] = MUL_PQ_P(P[1][index], Q)
     return P
 # Гурьянов Савелий
 # Каждый коэффициент многочлена циклично умножается на переданное рациональное число
+
 
 
 def GCF_PP_P(P1, P2):

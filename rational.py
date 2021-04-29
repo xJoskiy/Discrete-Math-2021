@@ -1,3 +1,5 @@
+from natural import *
+from integer import *
 def INT_Q_B(Q):
     numerator = Q[0]
     denominator = Q[1]
@@ -50,3 +52,20 @@ def TRANS_Q_Z(x):
         if x[-2] == '/':
             x = x[:-2]
     return x
+
+def SUB_QQ_Q(list1,list2):
+    #Дашкин Дамир
+    #Вычитание дробей
+    beginning_znam1 = list1.index('/')
+    k1 = list1[beginning_znam1:]
+    beginning_znam2 = list1.index('/')
+    k2 = list2[beginning_znam2:]
+    znam=LCM_NN_N(k1,k2)
+    add1 = DIV_NN_N(znam, k1)
+    add2 = DIV_NN_N(znam, k2)
+    chisl1 = MUL_ZZ_Z(add1, list1[:beginning_znam1-1])
+    chisl2 = MUL_ZZ_Z(add2, list2[:beginning_znam2-1])
+    result = SUB_ZZ_Z(chisl1, chisl2)
+    res = []
+    res = result[1:] + ['/'] + znam
+    return res

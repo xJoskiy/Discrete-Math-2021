@@ -11,6 +11,12 @@ def POZ_Z_D(mas): # на вход функция получает целое ч�
         res = 2
     return res
 
+def TRANS_Z_N(list1):
+    #Преобразование целого неотрицательного в натуральное(то есть отбрасывание первого
+элемента в массиве)
+    k=list1[1:]
+    return k
+
 
 def SUB_ZZ_Z(celoe1, celoe2): # на вход функция получает 2 целых числа
     # Семёнов Михаил
@@ -80,21 +86,11 @@ def SUB_ZZ_Z(celoe1, celoe2): # на вход функция получает 2 
     return result
   
 
-def ADD_ZZ_Z(b1, n1, list1, b2, n2, list2):
+def ADD_ZZ_Z(list1,list2):
     #Дашкин Дамир
     #Сложение целых чисел
-    str1 = ""
-    str2 = ""
-    for i in range(len(list1)):
-        str1 = str1 + str(list1[i])
-    for j in range(len(list2)):
-        str2 = str2 + str(list2[j])
-    if b1 == 1:
-        str1 = "-" + str1
-    num1 = int(str1)
-    if b2 == 1:
-        str2 = "-" + str2
-    num2 = int(str2)
+    num1=list1
+    num2=list2
     if POZ_Z_D(num1) == 2 and POZ_Z_D(num2) == 2:
         res = ADD_NN_N(num1, num2)
     if POZ_Z_D(num1) == 1 and POZ_Z_D(num2) == 1:
@@ -122,25 +118,16 @@ def ADD_ZZ_Z(b1, n1, list1, b2, n2, list2):
     return res
 
 
-def MOD_ZZ_Z(b1, n1, list1, b2, n2, list2):
+def MOD_ZZ_Z(list1, list2):
     #Дашкин Дамир
     #Остаток от деления целых чисел
-    str1 = ""
-    str2 = ""
-    for i in range(len(list1)):
-        str1 = str1 + str(list1[i])
-    for j in range(len(list2)):
-        str2 = str2 + str(list2[j])
-    if b1 == 1:
-        str1 = "-" + str1
-    num1 = int(str1)
-    if b2 == 1:
-        str2 = "-" + str2
-    num2 = int(str2)
+    num1 = list1
+    num2 = list2
     q = DIV_ZZ_Z(num1, num2)
     k = MUL_ZZ_Z(q, num2)
     res = SUB_ZZ_Z(num1, k)
     return res
+
 
 
 def MUL_ZM_Z(x):

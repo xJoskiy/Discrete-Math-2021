@@ -1,3 +1,19 @@
+
+def MUL_Pxk_P(polynome1, polynome2):
+    #Дашкин Дамир
+    #Умножение многочлена на x^k
+    res = ""
+    str1 = Changing_str(polynome1)
+    str2 = Changing_str(polynome2)
+    k = 0
+    i=0
+    while i < len(polynome2):
+        k += 1
+        i += 2
+    k -= 1
+    res = str1[:] + k*" 00"
+    return res
+
 def MUL_PQ_P(P, Q):
     for index in range(0, P[0]):
         P[1][index] = MUL_PQ_P(P[1][index], Q)
@@ -23,3 +39,4 @@ def LED_P_Q(list0):
     for (i != " ") in list0:
         list1 = list1 + i
     return list1
+

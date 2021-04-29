@@ -23,3 +23,30 @@ def LED_P_Q(list0):
     for (i != " ") in list0:
         list1 = list1 + i
     return list1
+
+
+def ADD_PP_P(x, y):
+    # Кривоконь Максим
+    # Сложение многочленов
+    res = ""  # Результат
+    prdx = x.split(' ')
+    prdy = y.split(' ')
+    i = 0
+    prdx.reverse() 
+    prdy.reverse()
+    if (len(prdx) < len(prdy)):  # Если кол-во коэффициентов в первой переменной меньше, чем во второй, то
+        while (i != len(prdy)):  # записываем их нулями - "00"
+            prdx.insert(0, str('00'))
+            i = i + 1
+    i = 0
+    if (len(prdy) < len(prdx)):  # Если кол-во коэффициентов во второй переменной меньше, чем в первой, то
+        while (i != len(prdx)):  # записываем их нулями - "00"
+            prdy.insert(0, str('00'))
+            i = i + 1
+    prdx.reverse()
+    prdy.reverse()
+    i = 0
+    while (i != len(prdx)):
+        res = res + ADD_QQ_Q((prdx[i]+"/1"), (prdy[i]+"/1")) + " "  # Получаем итоговый результат сложения
+        i = i + 1
+    return res

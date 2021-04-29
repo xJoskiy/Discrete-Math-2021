@@ -108,3 +108,37 @@ def INT_Q_B(A):
         return "Да"
     else:
         return "Нет"
+    
+    
+    def Changing_str(str1):
+    s = ""
+    for i in range(len(str1)):
+        if str1[i] == "-":
+            s += "1"
+
+            print(i)
+        elif str1[i] != " ":
+            if str1[i - 1] == "-":
+                s += str1[i]
+            elif str1[i - 1] == " " or i == 0:
+                s += "0" + str1[i]
+            else:
+                s += str1[i]
+
+
+def SUB_QQ_Q(list1, list2):
+        # Дашкин Дамир
+        # Вычитание дробей
+        beginning_znam1 = list1.index('/')
+        k1 = list1[beginning_znam1:]
+        beginning_znam2 = list1.index('/')
+        k2 = list2[beginning_znam2:]
+        znam = LCM_NN_N(k1, k2)
+        add1 = DIV_NN_N(znam, k1)
+        add2 = DIV_NN_N(znam, k2)
+        chisl1 = MUL_ZZ_Z(add1, list1[:beginning_znam1 - 1])
+        chisl2 = MUL_ZZ_Z(add2, list2[:beginning_znam2 - 1])
+        result = SUB_ZZ_Z(chisl1, chisl2)
+        res = []
+        res = result[1:] + ['/'] + znam
+        return res

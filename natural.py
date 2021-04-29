@@ -155,7 +155,7 @@ def ADD_NN_N(mas1, mas2):
     else:
         mas_rez[-1] = 1
     mas_rez = mas_rez[::-1]
-    return "".join(map(str, mas_rez))
+    return  mas_rez
 
 
 def GCF_NN_N(n1, list1, n2, list2):

@@ -158,19 +158,18 @@ def ADD_NN_N(mas1, mas2):
     return "".join(map(str, mas_rez))
 
 
-def GCF_NN_N(n1, list1, n2, list2):
+def GCF_NN_N(list1, list2):
     # Дашкин Дамир
     # Нахождение НОД по алгоритму Евклида, используя остаток от деления одного числа на другое
-    str1 = "" 
-    str2 = ""
-    for i in range(len(list1)):
-        str1 = str1 + str(list1[i])
-    for j in range(len(list2)):
-        str2 = str2 + str(list2[j])
-    num1, num2 = int(str1), int(str2)
-    while NZER_N_B(num1) == "Нет" and NZER_N_B(num2) == "Нет":
-        if COM_NN_D(num1, num2) == 2:
-            num2 = MOD_NN_N(num2, num1)
+    num1 = list1
+    num2 = list2
+    while NZER_N_B(num1) == False and NZER_N_B(num2) == False:
+        if COM_NN_D(list1, list2) == 2:
+            num2 = MOD_NN_N(list2, list1)
         else:
-            num1 = MOD_NN_N(num1, num2)
-    return num1 + num2
+            num1 = MOD_NN_N(list1, list2)
+    if num1[0] == 0:
+        k = num2
+    else:
+        k = num1
+    return k

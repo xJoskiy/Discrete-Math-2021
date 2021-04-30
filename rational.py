@@ -74,6 +74,26 @@ def TRANS_Q_Z(list):
     newList=list[:i]
     return newList
 
+
+def DIV_QQ_Q(x, y):
+    # Деление дробей
+    # Кривоконь Максим
+    if (x[1] == 0):
+        res = 0
+    else:
+        x1 = x[:x.index('/')]
+        x2 = "0" + x[x.index('/')+1:]
+        y1 = y[:y.index('/')]
+        y2 = "0" + y[y.index('/')+1:]
+        if (MUL_ZZ_Z(x1, y2)[0] == 1) and (MUL_ZZ_Z(x2, y1)[0] == 1):
+            res = MUL_ZZ_Z(x1, y2)[1:] + "/" + MUL_ZZ_Z(x2, y1)[1:]
+        elif (MUL_ZZ_Z(x1, y2)[0] == 0) and (MUL_ZZ_Z(x2, y1)[0] == 0):
+            res = MUL_ZZ_Z(x1, y2)[1:] + "/" + MUL_ZZ_Z(x2, y1)[1:]
+        else:
+            res = "-" + MUL_ZZ_Z(x1, y2)[1:] + "/" + MUL_ZZ_Z(x2, y1)[1:]
+    return res
+
+
 def MUL_QQ_Q(rational1,rational2): # на вход функция получает 2 рациональных числа
     # Семёнов Михаил
     # Умножение дробей

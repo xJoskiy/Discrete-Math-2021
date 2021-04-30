@@ -1,10 +1,3 @@
-
-
-        else:
-            s += str1[i]
-    return s
-
-
 def MUL_PQ_P(P, Q):
     for index in range(0, P[0]):
         P[1][index] = MUL_PQ_P(P[1][index], Q)
@@ -80,7 +73,7 @@ def SUB_PP_P(stroka1,stroka2):
         if stroka1[i]==' ': #если дошли до пробела
             mnog1 = list(stroka1[count1:i]) #создаём список ,состоящий из цифр числа коэффицента полинома
             k = 0
-            for k in range len(mnog1):#проход по созданному списку 
+            for k in range(len(mnog1)):  #проход по созданному списку
                 if mnog1[i] != ' ' and mnog1[i] != '/': #если значения списка цифры
                     mnog1[i] = int(mnog1[i]) # переводим символы в цифры
             i = i + 1 #увеличиваем счётчик
@@ -90,12 +83,12 @@ def SUB_PP_P(stroka1,stroka2):
         if stroka2[j] == ' ':
             mnog2 = list(stroka2[count2:j])
             k=0
-            for k in range len(mnog2):
+            for k in range(len(mnog2)):
                 if mnog2[i] != ' ' and mnog2[i] != '/':
                     mnog2[i] = int(mnog2[i])
             j = j + 1
             count2 = j
-        if (i != len(stroka1)) or (j != len(stroka2)) #если не дошли до конца 
+        if (i != len(stroka1)) or (j != len(stroka2)): #если не дошли до конца
             rez = rez + SUBB_QQ_Q(mnog1,mnog2) + [' '] #прибавляем к списку разность коэффицентов полиномов
         else :
             rez = rez + SUBB_QQ_Q(mnog1,mnog2) #тоже самое ,только без пробела после последнего элемента

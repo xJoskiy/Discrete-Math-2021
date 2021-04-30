@@ -183,19 +183,19 @@ def INT_Q_B(A):
     
     
     def Changing_str(str1):
-    s = ""
-    for i in range(len(str1)):
-        if str1[i] == "-":
-            s += "1"
+        s = ""
+        for i in range(len(str1)):
+            if str1[i] == "-":
+                s += "1"
 
-            print(i)
-        elif str1[i] != " ":
-            if str1[i - 1] == "-":
-                s += str1[i]
-            elif str1[i - 1] == " " or i == 0:
-                s += "0" + str1[i]
-            else:
-                s += str1[i]
+                print(i)
+            elif str1[i] != " ":
+                if str1[i - 1] == "-":
+                    s += str1[i]
+                elif str1[i - 1] == " " or i == 0:
+                    s += "0" + str1[i]
+                else:
+                    s += str1[i]
 
 
 def SUB_QQ_Q(list1, list2):

@@ -198,19 +198,19 @@ def GCF_NN_N(list1, list2):
     return k
 
 
-def MULL_NN_N(nat1,nat2):
-    #Аносов Павел
-    #Умножение натуральных чисел
-    nat2=nat2[::-1] #разворот списка
+def MUL_NN_N(nat1,nat2):
+    # Аносов Павел
+    # Умножение натуральных чисел
+    nat2 = nat2[::-1]  # разворот списка
     sum = []
-    for i in range (len(nat2)): #проход по цифрам второго числа
-        if nat2[i] != 0 : #если не 0
-            rez = MULL_ND_N(nat1,int(nat2[i])) #умножаем число на цифру
-            rez = rez + i*[0] #прибавляем разряды
-            if sum != []: #если список не пустой
-                sum =ADD_NN_N(sum,rez) #складываем два натуральных числа
+    for i in range(len(nat2)):  # проход по цифрам второго числа
+        if nat2[i] != 0:  # если не 0
+            rez = MUL_ND_N(int(nat2[i]), nat1)  # умножаем число на цифру
+            rez = rez + i*[0]  # прибавляем разряды
+            if sum:  # если список не пустой
+                sum = ADD_NN_N(sum, rez)  # складываем два натуральных числа
             else:
-                sum = rez #присваиваем списку значения списка rez
+                sum = rez  # присваиваем списку значения списка rez
     return sum
 
 
@@ -226,7 +226,7 @@ def SUB_NDN_N(nat1, nat2, number):
     return result
 
 
-def MUL_ND_N(n,list0):
+def MUL_ND_N(n, list0):
     # Пекло Елизавета
     # Умножение натурального числа на цифру
     tmp1 = 0

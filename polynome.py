@@ -1,18 +1,9 @@
-def MUL_Pxk_P(polynome1, polynome2):
-    #Дашкин Дамир
-    #Умножение многочлена на x^k
-    res = ""
-    str1 = Changing_str(polynome1)
-    str2 = Changing_str(polynome2)
-    k = 0
-    i=0
-    while i < len(polynome2):
-        k += 1
-        i += 2
-    k -= 1
-    res = str1[:] + k*" 00"
-    return res
-  
+
+
+        else:
+            s += str1[i]
+    return s
+
 
 def MUL_PQ_P(P, Q):
     for index in range(0, P[0]):
@@ -34,7 +25,7 @@ def GCF_PP_P(P1, P2):
 # Реализуется алгоритм Евклида для многочленов: пока степень меньшего многочлена неотрицательна,
 # в больший многочлен переписывается меньший, а в меньший - остаток от деления большего на меньший
 
-def LED_P_Q(list0):
+def LED_P_Q(str):
 # Пекло Елизавета
 
 # Нахождение старшего коэффициента многочлена
@@ -56,11 +47,28 @@ def DEG_P_N(list):
     return cnt
 
 #Нахождение старшего коэффициента многочлена
-    for (i != " ") in list0:
-        list1 = list1 + i
-    return list1
+    str0 = Changing_str(str)
+    str1 = ''
+    i = 0
+    while str0[i] != ' ':
+        str1 = str1 + str0[i]
+        i += 1
+    return str1
 
 
+def DEG_P_N(str):
+# Пекло Елизавета
+# Получение степени многочлена
+# Степень многочлена равна количеству пробелов в списке
+    str0 = Changing_str(str)
+    cnt = 0
+    i = 0
+    for i in range(len(str0)):
+        if str0[i] == ' ':
+            cnt = cnt + 1
+    return cnt
+
+  
 def SUB_PP_P(stroka1,stroka2):
     #Семёнов Михаил
     #Вычитание многочленов

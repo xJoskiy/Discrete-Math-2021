@@ -1,9 +1,26 @@
+def MUL_Pxk_P(polynome1, polynome2):
+    #Дашкин Дамир
+    #Умножение многочлена на x^k
+    res = ""
+    str1 = Changing_str(polynome1)
+    str2 = Changing_str(polynome2)
+    k = 0
+    i=0
+    while i < len(polynome2):
+        k += 1
+        i += 2
+    k -= 1
+    res = str1[:] + k*" 00"
+    return res
+  
+
 def MUL_PQ_P(P, Q):
     for index in range(0, P[0]):
         P[1][index] = MUL_PQ_P(P[1][index], Q)
     return P
 # Гурьянов Савелий
 # Каждый коэффициент многочлена циклично умножается на переданное рациональное число
+
 
 
 def GCF_PP_P(P1, P2):
@@ -24,7 +41,7 @@ def LED_P_Q(list0):
         list1 = list1 + i
     return list1
 
-
+  
 def ADD_PP_P(x, y):
     # Кривоконь Максим
     # Сложение многочленов
@@ -52,3 +69,4 @@ def ADD_PP_P(x, y):
         res = res + ADD_QQ_Q((prdx[i]+"/1"), (prdy[i]+"/1")) + " "  # Получаем итоговый результат сложения
         i = i + 1
     return res
+

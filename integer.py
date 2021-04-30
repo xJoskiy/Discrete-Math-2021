@@ -183,3 +183,21 @@ def MUL_ZZ_Z(x, y):
         res = 0
     return res
 
+def DIV_ZZ_Z(celoe1,celoe2):
+    #Савелий Гурьянов
+    #Частное от деления целого на целое
+    znak1 = POZ_Z_D(celoe1)#знак числа 1
+    znak2 = POZ_Z_D(celoe2)#знак числа 2
+    if znak1 != 0 :#делимое не 0
+        celoe1_nat = ABS_Z_N(celoe1)#натуральное число
+        celoe2_nat = ABS_Z_N(celoe2)#натуральное число
+        result = DIV_NN_N(celoe1_nat,celoe2_nat)#частное от деления натуральных
+        if znak1 != znak2 :#если знаки чисел разные
+            result = [1] + result
+        elif znak1 == 2:#делимое больше нуля 
+            result = [0] + result
+        else:
+            result = [1] + result
+    else :
+        result = celoe1
+    return result

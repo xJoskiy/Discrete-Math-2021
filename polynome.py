@@ -36,6 +36,25 @@ def GCF_PP_P(P1, P2):
 
 def LED_P_Q(list0):
 # Пекло Елизавета
+
+# Нахождение старшего коэффициента многочлена
+    list1 = ''
+    i = 0
+    while list0[i] != ' ':
+        list1 = list1 + list0[i]
+        i += 1
+    return list1
+
+def DEG_P_N(list):
+# Пекло Елизавета
+# Получение степени многочлена
+# Степень многочлена равна количеству пробелов в списке
+    cnt = 0
+    for x in list:
+        if x == ' ':
+            cnt = cnt + 1
+    return cnt
+
 #Нахождение старшего коэффициента многочлена
     for (i != " ") in list0:
         list1 = list1 + i

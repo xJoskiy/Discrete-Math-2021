@@ -20,6 +20,32 @@ def RED_Q_Q(Q):
 def ADD_QQ_Q(list1, list2):
 # Пекло Елизавета
 # Сложение дробей
+    i=0
+    while list1[i] != "/":
+        i=i+1
+    ch1 = list1[1:i]
+    zn1 = list1[i+1:]
+    i=0
+    while list2[i] != "/":
+        i=i+1
+    ch2 = list2[1:i]
+    zn2 = list2[i+1:]
+# ptr1, ptr2 - хранят знаки чисел
+    prt1 = list1[0]
+    prt2 = list2[0]
+# НОК и есть новый знаменатель дробей
+    nok = LCM_NN_N(zn1, zn2)
+# Находим множители при числителях дробей
+    mn1 = DIV_ZZ_Z([0]+nok, [0]+zn1)
+    mn2 = DIV_ZZ_Z([0]+nok, [0]+zn2)
+# Находим сами числители, а затем и их сумму
+    ch1_new = MUL_ZZ_Z([0]+ch1, mn1)
+    ch2_new = MUL_ZZ_Z([0]+ch2, mn2)
+    ch1_new[0] = ptr1
+    ch2_new[0] = ptr2
+    newCh = ADD_ZZ_Z(ch1, ch2)
+# Возвращаем новые числитель и знаменатель
+    return newCh + ['/'] + nok
     for i in range (len(list1)):
         if list1[i] == " ":
             ch1 = list1[:i]
@@ -40,6 +66,13 @@ def ADD_QQ_Q(list1, list2):
 # Возвращаем новые числитель и знаменатель
     return newCh, nok
 
+
+def TRANS_Q_Z(list):
+# Преобразование дробного в целое (если знаменатель равен 1)
+    while(list[i]!='/'):
+        i=i+1
+    newList=list[:i]
+    return newList
 
 def MUL_QQ_Q(rational1,rational2): # на вход функция получает 2 рациональных числа
     # Семёнов Михаил

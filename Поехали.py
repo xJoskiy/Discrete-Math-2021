@@ -137,18 +137,12 @@ def open_window_int_module():
     while True:
         event, values = window.read()
         x = []
-        if values['dig1'][0] == '-':
-            x = [1] + list(map(int, values['dig1'][1:]))
-        else:
-            x = [0] + list(map(int, values['dig1']))
-        res = integer.ABS_Z_N(x)
-        if res[0] == 2:
-            rex = ['-'] + res[1:]
-        else:
-            res = res[1:]
-        res = ''.join(map(str, res))
-
         if event == "start":
+            res = integer.ABS_Z_N(x)
+            if values['dig1'][0] == '-':
+                x = [1] + list(map(int, values['dig1'][1:]))
+            else:
+                x = [0] + list(map(int, values['dig1']))
             window['out'].update(res)
         if event == sg.WINDOW_CLOSED:
             break
@@ -167,15 +161,15 @@ def open_window_int_sum():
         event, values = window.read()
         x = []
         y = []
-        if values['dig1'][0] == '-':
-            x = [1] + list(map(int, values['dig1'][1:]))
-        else:
-            x = [0] + list(map(int, values['dig1']))
-        if values['dig2'][0] == '-':
-            y = [1] + list(map(int, values['dig2'][1:]))
-        else:
-            y = [0] + list(map(int, values['dig2']))
         if event == "start":
+            if values['dig1'][0] == '-':
+                x = [1] + list(map(int, values['dig1'][1:]))
+            else:
+                x = [0] + list(map(int, values['dig1']))
+            if values['dig2'][0] == '-':
+                y = [1] + list(map(int, values['dig2'][1:]))
+            else:
+                y = [0] + list(map(int, values['dig2']))
             window['out'].update(integer.ADD_ZZ_Z(x, y))
         if event == sg.WINDOW_CLOSED:
             break
@@ -194,15 +188,15 @@ def open_window_int_sub():
         event, values = window.read()
         x = []
         y = []
-        if values['dig1'][0] == '-':
-            x = [1] + list(map(int, values['dig1'][1:]))
-        else:
-            x = [0] + list(map(int, values['dig1']))
-        if values['dig2'][0] == '-':
-            y = [1] + list(map(int, values['dig2'][1:]))
-        else:
-            y = [0] + list(map(int, values['dig2']))
         if event == "start":
+            if values['dig1'][0] == '-':
+                x = [1] + list(map(int, values['dig1'][1:]))
+            else:
+                x = [0] + list(map(int, values['dig1']))
+            if values['dig2'][0] == '-':
+                y = [1] + list(map(int, values['dig2'][1:]))
+            else:
+                y = [0] + list(map(int, values['dig2']))
             window['out'].update(integer.SUB_ZZ_Z(x, y))
         if event == sg.WINDOW_CLOSED:
             break
@@ -221,15 +215,15 @@ def open_window_int_prod():
         event, values = window.read()
         x = []
         y = []
-        if values['dig1'][0] == '-':
-            x = [1] + list(map(int, values['dig1'][1:]))
-        else:
-            x = [0] + list(map(int, values['dig1']))
-        if values['dig2'][0] == '-':
-            y = [1] + list(map(int, values['dig2'][1:]))
-        else:
-            y = [0] + list(map(int, values['dig2']))
         if event == "start":
+            if values['dig1'][0] == '-':
+                x = [1] + list(map(int, values['dig1'][1:]))
+            else:
+                x = [0] + list(map(int, values['dig1']))
+            if values['dig2'][0] == '-':
+                y = [1] + list(map(int, values['dig2'][1:]))
+            else:
+                y = [0] + list(map(int, values['dig2']))
             window['out'].update(x, y)
         if event == sg.WINDOW_CLOSED:
             break
@@ -248,19 +242,18 @@ def open_window_int_mod():
         event, values = window.read()
         x = []
         y = []
-        if values['dig1'][0] == '-':
-            x = [1] + list(map(int, values['dig1'][1:]))
-        else:
-            x = [0] + list(map(int, values['dig1']))
-        if values['dig2'][0] == '-':
-            y = [1] + list(map(int, values['dig2'][1:]))
-        else:
-            y = [0] + list(map(int, values['dig2']))
         if event == "start":
+            if values['dig1'][0] == '-':
+                x = [1] + list(map(int, values['dig1'][1:]))
+            else:
+                x = [0] + list(map(int, values['dig1']))
+            if values['dig2'][0] == '-':
+                y = [1] + list(map(int, values['dig2'][1:]))
+            else:
+                y = [0] + list(map(int, values['dig2']))
             window['out'].update(integer.MOD_ZZ_Z(x, y))
         if event == sg.WINDOW_CLOSED:
             break
-
 
 
 def open_window_int_quot():
@@ -310,7 +303,7 @@ def open_window_rat_sum():
             i = 0
         y.append(list(map(int, values['dig1'][i + 1:])))
         if event == "start":
-            window['out'].update()
+            window['out'].update(rat.ADD_QQ_Q(x, y))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -326,8 +319,15 @@ def open_window_rat_sub():
     window = sg.Window('The subtraction of rational numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
+        x = []
+        y = []
+        i = 0
+        while values['dig1'] != "\\":
+            x.append(values['dig1'][i])
+            i = 0
+        y.append(list(map(int, values['dig1'][i + 1:])))
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -343,8 +343,15 @@ def open_window_rat_prod():
     window = sg.Window('The product of rational numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
+        x = []
+        y = []
+        i = 0
+        while values['dig1'] != "\\":
+            x.append(values['dig1'][i])
+            i = 0
+        y.append(list(map(int, values['dig1'][i + 1:])))
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+            window['out'].update(rat.MUL_QQ_Q(x, y))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -361,7 +368,8 @@ def open_window_rat_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 

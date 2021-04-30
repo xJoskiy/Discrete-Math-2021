@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 import natural as nat
+import integer
 
 
 def open_window_nat_sum():
@@ -14,7 +15,7 @@ def open_window_nat_sum():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.ADD_NN_N(values['dig1'], values['dig2']))
+            window['out'].update(nat.ADD_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -31,7 +32,8 @@ def open_window_nat_sub():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.SUB_NN_N(values['dig1'], values['dig2']))
+            # res = int(''.join(map(str, nat.SUB_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))))
+            window['out'].update(nat.SUB_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -65,7 +67,7 @@ def open_window_nat_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.DIV_NN_N(values['dig1'], values['dig2']))
+            window['out'].update(nat.DIV_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -82,7 +84,7 @@ def open_window_nat_mod():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.MOD_NN_N(values['dig1'], values['dig2']))
+            window['out'].update(nat.MOD_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -97,9 +99,9 @@ def open_window_nat_gcd():
     ]
     window = sg.Window('Greatest Common Divisor of natural numbers', layout, size=(460, 260), resizable=True)
     while True:
-        event, values = window.read(nat.GCF_NN_N(values['dig1'], values['dig2']))
+        event, values = window.read()
         if event == "start":
-            window['out'].update()
+            window['out'].update(nat.GCF_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -115,7 +117,7 @@ def open_window_nat_lcd():
     while True:
         event, values = window.read()
         if event == "start":
-            pass
+            window['out'].update(nat.LCM_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -165,7 +167,7 @@ def open_window_int_sub():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update()
+            window['out'].update(list(map(int, values['dig1'])), list(map(int, values['dig2'])))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -180,7 +182,7 @@ def open_window_int_prod():
     ]
     window = sg.Window('The product of integer numbers', layout, size=(460, 260), resizable=True)
     while True:
-        event, values = window.read()
+        event, values = window.read(list(map(int, values['dig1'])), list(map(int, values['dig2'])))
         if event == "start":
             window['out'].update()
         if event == sg.WINDOW_CLOSED:
@@ -195,11 +197,11 @@ def open_window_int_quot():
         [sg.Input(key='dig2')],
         [sg.Text(size=(400, 10), key='out')]
     ]
-    window = sg.Window('The quotient of natural numbers', layout, size=(460, 260), resizable=True)
+    window = sg.Window('The quotient of integer numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update()
+            window['out'].update(list(map(int, values['dig1'])), list(map(int, values['dig2'])))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -248,6 +250,13 @@ def open_window_rat_sum():
     window = sg.Window('The sum of rational numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
+        x = []
+        y = []
+        i = 0
+        while values['dig1'] != "\\":
+            x.append(values['dig1'][i])
+            i = 0
+        y.append(list(map(int, values['dig1'][i + 1:])))
         if event == "start":
             window['out'].update()
         if event == sg.WINDOW_CLOSED:
@@ -542,3 +551,4 @@ while True:
     Operation_with_Additional(event)
     if event == sg.WINDOW_CLOSED:
         break
+

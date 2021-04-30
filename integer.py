@@ -26,6 +26,12 @@ def ABS_Z_N(celoe):
         celoe[0] = 2
     return celoe
   
+def TRANS_N_Z(nat):
+    #Аносов Павел
+    #Преобразование натурального в целое
+    nat = [0] + nat # добавляем 0 перед списком
+    return nat
+
 
 def SUB_ZZ_Z(celoe1,celoe2): # на вход функция получает 2 целых числа
     # Семёнов Михаил

@@ -4,6 +4,25 @@ import integer
 import rational as rat
 import polynome as pol
 
+def defSign(seq):
+    pasqq
+
+
+def StrToRat(seq):
+    res = []
+    i = 0
+    if seq[0] == '-':
+        res += '1'
+        i += 1
+    else:
+        res += '0'
+    while seq[i] != '/':
+        res.append(int(seq[i]))
+        i += 1
+    res.append('/')
+    res += map(int, seq[i + 1:])
+    return res
+
 
 def open_window_nat_sum():
     layout = [
@@ -138,12 +157,14 @@ def open_window_int_module():
         event, values = window.read()
         x = []
         if event == "start":
-            res = integer.ABS_Z_N(x)
             if values['dig1'][0] == '-':
                 x = [1] + list(map(int, values['dig1'][1:]))
             else:
                 x = [0] + list(map(int, values['dig1']))
-            window['out'].update(res)
+
+            res = integer.ABS_Z_N(x)
+            res = ''.join(map(str, x))
+            window['out'].update(res[1:])
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -269,15 +290,15 @@ def open_window_int_quot():
         event, values = window.read()
         x = []
         y = []
-        if values['dig1'][0] == '-':
-            x = [1] + list(map(int, values['dig1'][1:]))
-        else:
-            x = [0] + list(map(int, values['dig1']))
-        if values['dig2'][0] == '-':
-            y = [1] + list(map(int, values['dig2'][1:]))
-        else:
-            y = [0] + list(map(int, values['dig2']))
         if event == "start":
+            if values['dig1'][0] == '-':
+                x = [1] + list(map(int, values['dig1'][1:]))
+            else:
+                x = [0] + list(map(int, values['dig1']))
+            if values['dig2'][0] == '-':
+                y = [1] + list(map(int, values['dig2'][1:]))
+            else:
+                y = [0] + list(map(int, values['dig2']))
             window['out'].update(integer.DIV_ZZ_Z(x, y))
         if event == sg.WINDOW_CLOSED:
             break
@@ -295,15 +316,8 @@ def open_window_rat_sum():
     window = sg.Window('The sum of rational numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
-        x = []
-        y = []
-        i = 0
-        while values['dig1'] != "\\":
-            x.append(values['dig1'][i])
-            i = 0
-        y.append(list(map(int, values['dig1'][i + 1:])))
         if event == "start":
-            window['out'].update(rat.ADD_QQ_Q(x, y))
+            window['out'].update(rat.ADD_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2'])))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -322,7 +336,7 @@ def open_window_rat_sub():
         x = []
         y = []
         i = 0
-        while values['dig1'] != "\\":
+        while values['dig1'] != "/":
             x.append(values['dig1'][i])
             i = 0
         y.append(list(map(int, values['dig1'][i + 1:])))
@@ -346,12 +360,12 @@ def open_window_rat_prod():
         x = []
         y = []
         i = 0
-        while values['dig1'] != "\\":
+        while values['dig1'] != "/":
             x.append(values['dig1'][i])
             i = 0
         y.append(list(map(int, values['dig1'][i + 1:])))
         if event == "start":
-            window['out'].update(rat.MUL_QQ_Q(x, y))
+            window['out'].update(rat.MUL_QQ_Q(res))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -379,14 +393,13 @@ def open_window_rat_red():
         [sg.Text('Enter two rationals')],
         [sg.Input(key='dig1')],
         [sg.Button('', key='start')],
-        [sg.Input(key='dig2')],
         [sg.Text(size=(400, 10), key='out')]
     ]
     window = sg.Window('The fraction reduction of rational numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -403,7 +416,7 @@ def open_window_pol_sum():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 

@@ -69,7 +69,7 @@ def SUB_NN_N(x, y):
 
 def DIV_NN_N(x, y):
     # Аносов Павел
-    # Частное от деления большего натурального числа на меньшее или равное натуральное с остатком  
+    # Частное от деления большего натурального числа на меньшее или равное натуральное с остатком
     count = 0
     while True:
         if COM_NN_D(x, y) != 1:
@@ -105,7 +105,7 @@ def DIV_NN_Dk(N1, N2):
     # пока N1 больше произведения k на N2
     if COM_NN_D(N1, N2) == 2:
         k = 1
-        while N1 > MUL_Nk_N(N2, k):
+        while N1 > MUL_Nk_N(k, N2):
             k += 1
         return k - 1
     else:
@@ -123,7 +123,8 @@ def NZER_N_B(x):
 
 def MOD_NN_N(x, y):
     # Артамонов Артур, гр.0306
-    # Остаток от деления большего натурального числа на меньшее или равное натуральное с остатком(делитель отличен от нуля)
+    # Остаток от деления большего натурального числа на меньшее или равное натуральное с
+    # остатком(делитель отличен от нуля)
 
     ch = DIV_NN_N(x, y)  # Нахождение неполного частного
     mod = SUB_NDN_N(x, y, ch)  # Нахождение остатка. Пример: 53 mod 3 = 2. Тогда ch = 53/3 = 17. mod = 53 - 17 * 3 = 2
@@ -158,17 +159,17 @@ def ADD_NN_N(mas1, mas2):
     if flag == 2:
         for i in range(length - min_length):
             mas_rez[j + i + 1] = (int(mas1[j + i + 1])+plus1) % 10
-            plus1 = (int(mas1[j + i + 1])+plus1) // 10
+            plus1 = (int(mas1[j + i + 1]) + plus1) // 10
     if flag == 1:
         for i in range(length - min_length):
-            mas_rez[j+i+1] = (int(mas2[j + i + 1]) + plus1) % 10
-            plus1 = (int(mas2[j+i+1]) + plus1) // 10
+            mas_rez[j + i + 1] = (int(mas2[j + i + 1]) + plus1) % 10
+            plus1 = (int(mas2[j + i + 1]) + plus1) // 10
     if plus1 == 0:
         mas_rez = mas_rez[0:len(mas_rez) - 1]
     else:
         mas_rez[-1] = 1
     mas_rez = mas_rez[::-1]
-    return  mas_rez
+    return mas_rez
 
 
 def GCF_NN_N(list1, list2):

@@ -1,14 +1,15 @@
 from natural import *
 
-def POZ_Z_D(mas): # на вход функция получает целое число
+
+def POZ_Z_D(mas):  # на вход функция получает целое число
     # Семёнов Михаил
     # Знак целого числа
-    if mas[0] == '1': # первый символ числа "-"
+    if mas[0] == 1:  # первый символ числа "-"
         res = 1
-    elif mas[0] == '0': # число равно нулю
-        res=0
-    else : #число положительное
-        res = 2
+    elif mas[0] == 0:  # число равно нулю
+        res = 0
+        if mas[1] == 0:
+            res = "00"
     return res
 
 
@@ -36,13 +37,13 @@ def TRANS_N_Z(nat):
 def SUB_ZZ_Z(celoe1,celoe2): # на вход функция получает 2 целых числа
     # Семёнов Михаил
     # Вычитание целых чисел
-    poz1 = POZ_Z_D(celoe1) # выясняем знак числа 1
+    poz1 = POZ_Z_D(celoe1)  # выясняем знак числа 1
    
-    poz2 = POZ_Z_D(celoe2) # выясняем знак числа 2
+    poz2 = POZ_Z_D(celoe2)  # выясняем знак числа 2
     celoe1 = celoe1[1:]
     celoe2 = celoe2[1:]
-    if poz1 != poz2 : # числа разных знаков
-        if poz1 == 1 and poz2 == 2: # число 1 отрицательное
+    if poz1 != poz2:  # числа разных знаков
+        if poz1 == 1 and poz2 == 2:  # число 1 отрицательное
             
             celoe1_nat = ABS_Z_N(celoe1) # модуль числа 1
             
@@ -81,36 +82,36 @@ def SUB_ZZ_Z(celoe1,celoe2): # на вход функция получает 2 �
     else :
         if poz1 == 2: # число 1 положительное
             
-            sravnenie = COM_NN_D(celoe1,celoe2) # выясняем какое число больше
+            sravnenie = COM_NN_D(celoe1, celoe2) # выясняем какое число больше
             
             if sravnenie ==  2 or sravnenie == 0:
                 
                 result =[0] + SUB_NN_N(celoe1,celoe2) # результат
                 
             else:
-                result = [1] + SUB_NN_N(celoe2,celoe1) # результат
+                result = [1] + SUB_NN_N(celoe2, celoe1)  # результат
         elif poz1 == 1:
             
-            celoe1_nat = ABS_Z_N(celoe1) # модуль числа 1
+            celoe1_nat = ABS_Z_N(celoe1)  # модуль числа 1
             
-            celoe2_nat = ABS_Z_N(celoe2) # модуль числа 2
+            celoe2_nat = ABS_Z_N(celoe2)  # модуль числа 2
             
-            sravnenie = COM_NN_D(celoe1_nat,celoe2_nat) # сравниваем модули чисел
+            sravnenie = COM_NN_D(celoe1_nat,celoe2_nat)  # сравниваем модули чисел
             
-            if sravnenie ==  1 or sravnenie == 0:
-                 result =[0] + SUB_NN_N(celoe2_nat,celoe1_nat) # результат
+            if sravnenie == 1 or sravnenie == 0:
+                 result = [0] + SUB_NN_N(celoe2_nat, celoe1_nat)  # результат
             else:
-                result = [1] + SUB_NN_N(celoe1_nat,celoe2_nat) # результат
+                result = [1] + SUB_NN_N(celoe1_nat, celoe2_nat)  # результат
         else:
-            result = [0] + celoe1 # результат
+            result = [0] + celoe1  # результат
     return result
   
 
-def ADD_ZZ_Z(list1,list2):
-    #Дашкин Дамир
-    #Сложение целых чисел
-    num1=list1
-    num2=list2
+def ADD_ZZ_Z(list1, list2):
+    # Дашкин Дамир
+    # Сложение целых чисел
+    num1 = list1
+    num2 = list2
     if POZ_Z_D(num1) == 2 and POZ_Z_D(num2) == 2:
         res = ADD_NN_N(num1, num2)
     if POZ_Z_D(num1) == 1 and POZ_Z_D(num2) == 1:
@@ -139,8 +140,8 @@ def ADD_ZZ_Z(list1,list2):
 
 
 def MOD_ZZ_Z(list1, list2):
-    #Дашкин Дамир
-    #Остаток от деления целых чисел
+    # Дашкин Дамир
+    # Остаток от деления целых чисел
     num1 = list1
     num2 = list2
     q = DIV_ZZ_Z(num1, num2)

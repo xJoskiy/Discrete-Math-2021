@@ -6,7 +6,6 @@ def MUL_PQ_P(P, Q):
 # Каждый коэффициент многочлена циклично умножается на переданное рациональное число
 
 
-
 def GCF_PP_P(P1, P2):
     if DEG_P_N(P1) >= DEG_P_N(P2):
         while (DEG_P_N(P2) != 0):
@@ -38,15 +37,6 @@ def DEG_P_N(list):
         if x == ' ':
             cnt = cnt + 1
     return cnt
-
-#Нахождение старшего коэффициента многочлена
-    str0 = Changing_str(str)
-    str1 = ''
-    i = 0
-    while str0[i] != ' ':
-        str1 = str1 + str0[i]
-        i += 1
-    return str1
 
 
 def DEG_P_N(str):

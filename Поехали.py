@@ -4,24 +4,20 @@ import integer
 import rational as rat
 import polynome as pol
 
-def defSign(seq):
-    pasqq
 
-
-def StrToRat(seq):
+def StrToList(seq):
     res = []
-    i = 0
-    if seq[0] == '-':
-        res += '1'
-        i += 1
-    else:
-        res += '0'
-    while seq[i] != '/':
-        res.append(int(seq[i]))
-        i += 1
-    res.append('/')
-    res += map(int, seq[i + 1:])
+    for i in seq:
+        if i.isdigit():
+            res.append(int(i))
+        else:
+            res.append(i)
     return res
+
+
+def ListToStr(seq):
+    return ''.join(map(str, seq))
+
 
 
 def open_window_nat_sum():
@@ -36,8 +32,7 @@ def open_window_nat_sum():
     while True:
         event, values = window.read()
         if event == "start":
-            res = ''.join(map(str, nat.ADD_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2'])))))
-            window['out'].update(res)
+            window['out'].update(ListToStr(nat.ADD_NN_N(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -54,8 +49,7 @@ def open_window_nat_sub():
     while True:
         event, values = window.read()
         if event == "start":
-            res = ''.join(map(str, nat.SUB_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2'])))))
-            window['out'].update(res)
+            window['out'].update(ListToStr(nat.SUB_NN_N(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -72,8 +66,7 @@ def open_window_nat_prod():
     while True:
         event, values = window.read()
         if event == "start":
-            res = ''.join(map(str, nat.MUL_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2'])))))
-            window['out'].update(res)
+            window['out'].update(ListToStr(nat.MUL_NN_N(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -90,7 +83,7 @@ def open_window_nat_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.DIV_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))
+            window['out'].update(ListToStr(nat.DIV_NN_N(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -107,7 +100,7 @@ def open_window_nat_mod():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.MOD_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))
+            window['out'].update(ListToStr(nat.MOD_NN_N(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -120,13 +113,14 @@ def open_window_nat_gcd():
         [sg.Input(key='dig2')],
         [sg.Text(size=(400, 10), key='out')]
     ]
-    window = sg.Window('Greatest Common Divisor of natural numbers', layout, size=(460, 260), resizable=True)
+    window = sg.Window('Greatest Common Denominator of natural numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.GCF_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))
+            window['out'].update(nat.GCF_NN_N(StrToList(values['dig1']), StrToList(values['dig2'])))
         if event == sg.WINDOW_CLOSED:
             break
+
 
 def open_window_nat_lcd():
     layout = [
@@ -140,7 +134,7 @@ def open_window_nat_lcd():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.LCM_NN_N(list(map(int, values['dig1'])), list(map(int, values['dig2']))))
+            window['out'].update(nat.LCM_NN_N(StrToList(values['dig1']), StrToList(values['dig2'])))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -155,16 +149,8 @@ def open_window_int_module():
     window = sg.Window('The module of integer number', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
-        x = []
         if event == "start":
-            if values['dig1'][0] == '-':
-                x = [1] + list(map(int, values['dig1'][1:]))
-            else:
-                x = [0] + list(map(int, values['dig1']))
-
-            res = integer.ABS_Z_N(x)
-            res = ''.join(map(str, x))
-            window['out'].update(res[1:])
+            window['out'].update(ListToStr(integer.ABS_Z_N((StrToList(values['dig1'])))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -180,18 +166,8 @@ def open_window_int_sum():
     window = sg.Window('The sum of integer numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
-        x = []
-        y = []
         if event == "start":
-            if values['dig1'][0] == '-':
-                x = [1] + list(map(int, values['dig1'][1:]))
-            else:
-                x = [0] + list(map(int, values['dig1']))
-            if values['dig2'][0] == '-':
-                y = [1] + list(map(int, values['dig2'][1:]))
-            else:
-                y = [0] + list(map(int, values['dig2']))
-            window['out'].update(integer.ADD_ZZ_Z(x, y))
+            window['out'].update(ListToStr(integer.ADD_ZZ_Z(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -207,18 +183,8 @@ def open_window_int_sub():
     window = sg.Window('The subtraction of integer numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
-        x = []
-        y = []
         if event == "start":
-            if values['dig1'][0] == '-':
-                x = [1] + list(map(int, values['dig1'][1:]))
-            else:
-                x = [0] + list(map(int, values['dig1']))
-            if values['dig2'][0] == '-':
-                y = [1] + list(map(int, values['dig2'][1:]))
-            else:
-                y = [0] + list(map(int, values['dig2']))
-            window['out'].update(integer.SUB_ZZ_Z(x, y))
+            window['out'].update(ListToStr(integer.SUB_ZZ_Z(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -234,18 +200,8 @@ def open_window_int_prod():
     window = sg.Window('The product of integer numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
-        x = []
-        y = []
         if event == "start":
-            if values['dig1'][0] == '-':
-                x = [1] + list(map(int, values['dig1'][1:]))
-            else:
-                x = [0] + list(map(int, values['dig1']))
-            if values['dig2'][0] == '-':
-                y = [1] + list(map(int, values['dig2'][1:]))
-            else:
-                y = [0] + list(map(int, values['dig2']))
-            window['out'].update(x, y)
+            window['out'].update(ListToStr(integer.MUL_ZZ_Z(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -261,18 +217,8 @@ def open_window_int_mod():
     window = sg.Window('The mod of integer numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
-        x = []
-        y = []
         if event == "start":
-            if values['dig1'][0] == '-':
-                x = [1] + list(map(int, values['dig1'][1:]))
-            else:
-                x = [0] + list(map(int, values['dig1']))
-            if values['dig2'][0] == '-':
-                y = [1] + list(map(int, values['dig2'][1:]))
-            else:
-                y = [0] + list(map(int, values['dig2']))
-            window['out'].update(integer.MOD_ZZ_Z(x, y))
+            window['out'].update(integer.MOD_ZZ_Z(StrToList(values['dig1']), StrToList(values['dig2'])))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -288,18 +234,8 @@ def open_window_int_quot():
     window = sg.Window('The quotient of integer numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
-        x = []
-        y = []
         if event == "start":
-            if values['dig1'][0] == '-':
-                x = [1] + list(map(int, values['dig1'][1:]))
-            else:
-                x = [0] + list(map(int, values['dig1']))
-            if values['dig2'][0] == '-':
-                y = [1] + list(map(int, values['dig2'][1:]))
-            else:
-                y = [0] + list(map(int, values['dig2']))
-            window['out'].update(integer.DIV_ZZ_Z(x, y))
+            window['out'].update(ListToStr(integer.DIV_ZZ_Z(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -317,7 +253,7 @@ def open_window_rat_sum():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(rat.ADD_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2'])))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -333,13 +269,6 @@ def open_window_rat_sub():
     window = sg.Window('The subtraction of rational numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
-        x = []
-        y = []
-        i = 0
-        while values['dig1'] != "/":
-            x.append(values['dig1'][i])
-            i = 0
-        y.append(list(map(int, values['dig1'][i + 1:])))
         if event == "start":
             window['out'].update()
         if event == sg.WINDOW_CLOSED:
@@ -365,7 +294,7 @@ def open_window_rat_prod():
             i = 0
         y.append(list(map(int, values['dig1'][i + 1:])))
         if event == "start":
-            window['out'].update(rat.MUL_QQ_Q(res))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 

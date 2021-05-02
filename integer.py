@@ -21,77 +21,31 @@ def ABS_Z_N(celoe):
         return celoe
 
 
-def SUB_ZZ_Z(celoe1, celoe2):  # на вход функция получает 2 целых числа
+def ADD_ZZ_Z(list1, list2):
     # Семёнов Михаил
     # Вычитание целых чисел
-    poz1 = POZ_Z_D(celoe1)  # выясняем знак числа 1
-   
-    poz2 = POZ_Z_D(celoe2)  # выясняем знак числа 2
-    celoe1 = celoe1[1:]
-    celoe2 = celoe2[1:]
-    if poz1 != poz2:  # числа разных знаков
-        if poz1 == 1 and poz2 == 2:  # число 1 отрицательное
-            
-            celoe1_nat = ABS_Z_N(celoe1)  # модуль числа 1
-            
-            sum_res = nat.ADD_NN_N(celoe1_nat, celoe2)  # складываем модули чисел
-            
-            result = [1] + sum_res  # результат
-        elif poz1 == 2 and poz2 == 1:  # число 1 положительное
-            
-            celoe2_nat = ABS_Z_N(celoe2)  # модуль числа 1
-            
-            sum_res = nat.ADD_NN_N(celoe1, celoe2_nat)  # складываем модули чисел
-            
-            result = [0] + sum_res  # результат
-        elif poz1 == 0:  # число 1 равно "0"
-            if poz2 == 2:  # число 2 положительное
-                result = [1] + celoe2  # результат
-            if poz2 == 1:  # число 2 положительное
-                result = '-' + celoe2  # результат
-            else:
-                if poz2 == 1: # число 2 отрицательное
-                    
-                    celoe2_nat = ABS_Z_N(celoe2)  # находим модуль 2 числа
+    if POZ_Z_D(list1) == '+' and POZ_Z_D(list2) == '-':
+        return ADD_NN_N(list1, ABS_Z_N(list2))
+    elif POZ_Z_D(list1) == '-' and POZ_Z_D(list2) == '+':
+        return ['-'] + ADD_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
+    elif COM_NN_D(ABS_Z_N(list1), ABS_Z_N(list2)) == 2 :
+        if list2 != [0]:
+            return  SUB_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
+        else :
+            return list1
+    elif POZ_Z_D(list1) == 0 :
+        if POZ_Z_D(list2) == '-':
+            return list2[1:]
+        elif list2 == [0]:
+            return list2
+        else :
+            return ['-'] + list2
 
-                    result =[0] + celoe2  # результат
-                else : 
-                    celoe2_nat = [0]
-                    result =[0] + celoe2_nat  # результат
-        else: # число 2 равно "0"
-            if poz1 == 1:  # число 1 отрицательное
-                
-                celoe1_nat = ABS_Z_N(celoe1)  # находим модуль числа 1
-                
-                result = [1] + celoe1_nat  # результат
-            else:
-                result = [0] + celoe1  # результат
-    else :
-        if poz1 == 2:  # число 1 положительное
-            
-            sravnenie = nat.COM_NN_D(celoe1, celoe2)  # выясняем какое число больше
-            
-            if sravnenie == 2 or sravnenie == 0:
-                
-                result = [0] + nat.SUB_NN_N(celoe1,celoe2) # результат
-                
-            else:
-                result = [1] + nat.SUB_NN_N(celoe2, celoe1)  # результат
-        elif poz1 == 1:
-            
-            celoe1_nat = ABS_Z_N(celoe1)  # модуль числа 1
-            
-            celoe2_nat = ABS_Z_N(celoe2)  # модуль числа 2
-            
-            sravnenie = nat.COM_NN_D(celoe1_nat,celoe2_nat)  # сравниваем модули чисел
-            
-            if sravnenie == 1 or sravnenie == 0:
-                 result = [0] + nat.SUB_NN_N(celoe2_nat, celoe1_nat)  # результат
-            else:
-                result = [1] + nat.SUB_NN_N(celoe1_nat, celoe2_nat)  # результат
-        else:
-            result = [0] + celoe1  # результат
-    return result
+    else:
+        if POZ_Z_D(list1) == '+':
+            return ['-'] + SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
+        else :
+            return  SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
   
 
 def ADD_ZZ_Z(list1, list2):

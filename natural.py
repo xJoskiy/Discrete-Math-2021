@@ -1,14 +1,14 @@
 def COM_NN_D(x, y):
     # Аносов Павел
     # Сравнение двух чисел
-    if len(x) > len(y):         # Если первый список длиннее второго, то он число больше
+    if len(x) > len(y):  # Если первый список длиннее второго, то он число больше
         return 2
-    elif len(x) < len(y):       # И наоборот
+    elif len(x) < len(y):  # И наоборот
         return 1
     else:
         for i, k in zip(x, y):
-            if i > k:           # Если цифра в большем разряде первого числа больше цифры во втором
-                return 2        # То оно больше
+            if i > k:  # Если цифра в большем разряде первого числа больше цифры во втором
+                return 2  # То оно больше
             elif i < k:
                 return 1
     return 0
@@ -64,6 +64,41 @@ def SUB_NN_N(list1, list2):
     return res
 
 
+def MUL_ND_N(list0, n):
+    # Пекло Елизавета
+    # Умножение натурального числа на цифру
+    list2 = list0.copy()
+    tmp1 = 0
+    tmp2 = 0
+    # Переворачиваем список для удобства
+    list2.reverse()
+    # Перебираем элементы списка
+    for i in range(len(list2)):
+        # Присваиваем текущему эл-ту [остаток от деления на 10 + целая часть от деления прошлого эл-та] и сохраняем
+        # целую часть от деления текущего эл-та
+        tmp1 = list2[i]
+        list2[i] = list2[i] * n % 10 + tmp2
+        tmp2 = tmp1 * n // 10
+    # Если при умножении последней цифры остается целая часть от деления, то добавляем эту целую часть в конец
+    if tmp2 != 0:
+        list2.append(tmp2)
+    # Переворачиваем список
+    list2.reverse()
+    return list2
+
+
+def SUB_NDN_N(nat1, nat2, number):
+    # Семёнов Михаил
+    # Вычитание из натурального числа другого натурального числа ,умноженного на цифру
+    # Результат только для положительных значений
+    r = []
+    nat0 = nat2
+    nat2_mull_nd_n = MUL_ND_N(nat0, number)  # функция умножения второго числа на цифру
+    if COM_NN_D(nat1, nat2_mull_nd_n) != 1:  # если первое число больше второго умноженного на цифру
+        r = SUB_NN_N(nat1, nat2_mull_nd_n)  # вычитаем из первого второе ,умноженное на цифру
+    return r
+
+
 def DIV_NN_N(a, b):
     # Аносов Павел
     # Частное от деления большего натурального числа на меньшее или равное натуральное с остатком
@@ -85,6 +120,15 @@ def MUL_Nk_N(k, list0):
     return list0
 
 
+def MOD_NN_N(x, y):
+    # Артамонов Артур, гр.0306
+    # Остаток от деления большего натурального числа на меньшее или равное натуральное с
+    # остатком(делитель отличен от нуля)
+    ch = int(''.join(map(str, DIV_NN_N(x, y))))  # Нахождение неполного частного
+    mod = SUB_NDN_N(x, y, ch)  # Нахождение остатка. Пример: 53 mod 3 = 2. Тогда ch = 53/3 = 17. mod = 53 - 17 * 3 = 2
+    return mod
+
+
 def LCM_NN_N(a, b):
     # Пекло Елизавета
     # Нахождения НОК двух натуральных
@@ -94,7 +138,7 @@ def LCM_NN_N(a, b):
     nok = DIV_NN_N(multp, nod)
     return nok
 
-    
+
 def DIV_NN_Dk(N1, N2):
     # Гурьянов Савелий
     # Целочисленное деление натуральных чисел осуществляется при помощи функции MUL_Nk_N
@@ -107,8 +151,8 @@ def DIV_NN_Dk(N1, N2):
         return k - 1
     else:
         return DIV_NN_Dk(N2, N1)
-    
-    
+
+
 def NZER_N_B(x):
     # Артамонов Артур, гр.0306
     # Проверка на 0. Если число = 0, то да, иначе нет
@@ -116,15 +160,6 @@ def NZER_N_B(x):
     if x[0] == 0:
         return "Да"
     return "Нет"
-
-
-def MOD_NN_N(x, y):
-    # Артамонов Артур, гр.0306
-    # Остаток от деления большего натурального числа на меньшее или равное натуральное с
-    # остатком(делитель отличен от нуля)
-    ch = int(''.join(map(str, DIV_NN_N(x, y))))  # Нахождение неполного частного
-    mod = SUB_NDN_N(x, y, ch)  # Нахождение остатка. Пример: 53 mod 3 = 2. Тогда ch = 53/3 = 17. mod = 53 - 17 * 3 = 2
-    return mod
 
 
 def ADD_NN_N(mas1, mas2):
@@ -148,7 +183,7 @@ def ADD_NN_N(mas1, mas2):
     mas_rez = [0] * (length + 1)
     for j in range(min_length):
         mas_rez[j] = (int(mas1[j]) + int(mas2[j]) + plus1) % 10
-        plus1 = (int(mas1[j]) + int(mas2[j]) + plus1) // 10 
+        plus1 = (int(mas1[j]) + int(mas2[j]) + plus1) // 10
     if flag == 2:
         for i in range(length - min_length):
             mas_rez[j + i + 1] = (int(mas1[j + i + 1]) + plus1) % 10
@@ -165,33 +200,6 @@ def ADD_NN_N(mas1, mas2):
     return mas_rez
 
 
-def GCF_NN_N(list1, list2):
-    # Дашкин Дамир
-    # Нахождение НОД по алгоритму Евклида, используя остаток от деления одного числа на другое
-    num1 = list1
-    num2 = list2
-    while NZER_N_B(num1) == "Нет" and NZER_N_B(num2) == "Нет":
-        if COM_NN_D(list1, list2) == 2:
-            num2 = MOD_NN_N(list2, list1)
-    str1 = "" 
-    str2 = ""
-    for i in range(len(list1)):
-        str1 = str1 + str(list1[i])
-    for j in range(len(list2)):
-        str2 = str2 + str(list2[j])
-    num1, num2 = list(map(int, str1)), list(map(int, str2))
-    while NZER_N_B(num1) == "Нет" and NZER_N_B(num2) == "Нет":
-        if COM_NN_D(num1, num2) == 2:
-            num2 = MOD_NN_N(num2, num1)
-        else:
-            num1 = MOD_NN_N(list1, list2)
-    if num1[0] == 0:
-        k = num2
-    else:
-        k = num1
-    return k
-
-
 def MUL_NN_N(nat1, nat2):
     # Аносов Павел
     # Умножение натуральных чисел
@@ -200,7 +208,7 @@ def MUL_NN_N(nat1, nat2):
     for i in range(len(nat2)):  # проход по цифрам второго числа
         if nat2[i] != 0:  # если не 0
             rez = MUL_ND_N(nat1, int(nat2[i]))  # умножаем число на цифру
-            rez = rez + i*[0]  # прибавляем разряды
+            rez = rez + i * [0]  # прибавляем разряды
             if sum:  # если список не пустой
                 sum = ADD_NN_N(sum, rez)  # складываем два натуральных числа
             else:
@@ -208,34 +216,19 @@ def MUL_NN_N(nat1, nat2):
     return sum
 
 
-def SUB_NDN_N(nat1, nat2, number):
-    # Семёнов Михаил
-    # Вычитание из натурального числа другого натурального числа ,умноженного на цифру
-    # Результат только для положительных значений
-    nat2_mull_nd_n = MUL_ND_N(nat2, number)  # функция умножения второго числа на цифру
-    if COM_NN_D(nat1, nat2_mull_nd_n) != 1:  # если первое число больше второго умноженного на цифру
-        result = SUB_NN_N(nat1, nat2_mull_nd_n)  # вычитаем из первого второе ,умноженное на цифру
-    return result
-
-
-def MUL_ND_N(list0, n):
-    # Пекло Елизавета
-    # Умножение натурального числа на цифру
-    tmp1 = 0
-    tmp2 = 0
-    # Переворачиваем список для удобства
-    list0.reverse()
-    # Перебираем элементы списка
-    for i in range(len(list0)):
-        # Присваиваем текущему эл-ту [остаток от деления на 10 + целая часть от деления прошлого эл-та] и сохраняем
-        # целую часть от деления текущего эл-та
-        tmp1 = list0[i]
-        list0[i] = list0[i] * n % 10 + tmp2
-        tmp2 = tmp1 * n // 10
-    # Если при умножении последней цифры остается целая часть от деления, то добавляем эту целую часть в конец
-    if tmp2 != 0:       
-        list0.append(tmp2)
-    # Переворачиваем список
-    list0.reverse()
-    return list0
-
+def GCF_NN_N(list1, list2):
+    # Дашкин Дамир
+    # Нахождение НОД по алгоритму Евклида, используя остаток от деления одного числа на другое
+    num1 = list1
+    num2 = list2
+    while NZER_N_B(num1) == "Нет" and NZER_N_B(num2) == "Нет":
+        if COM_NN_D(num1, num2) == 2:
+            num1 = MOD_NN_N(num1, num2)
+        else:
+            num = num1
+            num2 = MOD_NN_N(num2, num1)
+    if num1[0] == 0:
+        k = num2
+    else:
+        k = num1
+    return k

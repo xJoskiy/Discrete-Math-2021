@@ -9,7 +9,7 @@ def POZ_Z_D(mas):  # на вход функция получает целое ч
     elif mas[0] == 0:  # число равно нулю
         return 0
     else:
-        return '+'
+        return ''
 
 
 def ABS_Z_N(celoe):
@@ -97,7 +97,7 @@ def SUB_ZZ_Z(celoe1, celoe2):  # на вход функция получает 2
 def ADD_ZZ_Z(list1, list2):
     # Дашкин Дамир
     # Сложение целых чисел
-    if POZ_Z_D(list1) == '+' and POZ_Z_D(list2) == '+':
+    if POZ_Z_D(list1) == '' and POZ_Z_D(list2) == '':
         return nat.ADD_NN_N(list1, list2)
     elif POZ_Z_D(list1) == '-' and POZ_Z_D(list2) == '-':
         return ['-'] + nat.ADD_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
@@ -107,49 +107,34 @@ def ADD_ZZ_Z(list1, list2):
         return [POZ_Z_D(list2)] + nat.SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
 
 
-def MOD_ZZ_Z(list1, list2):
+def MOD_ZZ_Z(num1, num2):
     # Дашкин Дамир
     # Остаток от деления целых чисел
-    num1 = list1
-    num2 = list2
     q = DIV_ZZ_Z(num1, num2)
     k = MUL_ZZ_Z(q, num2)
-    res = SUB_ZZ_Z(num1, k)
-    return res
+    return SUB_ZZ_Z(num1, k)
 
 
 def MUL_ZM_Z(x):
     # Умножение целого на (-1)
     # Кривоконь Максим
-    if x[0] == 1:  # Если число отрицательное
-        x[0] = 0   # то знак меняется
+    if POZ_Z_D(x) == '-':  # Если число отрицательное
+        x = ABS_Z_N(x)   # то знак меняется
     else:
-        x[0] = 1   # Иначе число отрицательное
+        x[0] = '-'   # Иначе число отрицательное
     return x
 
 
-def MUL_ZZ_Z(x, y):
+def MUL_ZZ_Z(list1, list2):
     # Умножение целых чисел
     # Кривоконь Максим
-    if POZ_Z_D(x) == 1:  # Если первый множитель отрицательный, то:
-        if POZ_Z_D(y) == 1:  # если второй множитель отрицательный, то
-            res = nat.MUL_NN_N(ABS_Z_N(x), ABS_Z_N(y))  # умножаем числа по модулю, результат положительный
-        elif POZ_Z_D(y) == 0:  # если второй множитель равен нулю, то результат равен нулю
-            res = 0
-        elif POZ_Z_D(y) == 2:  # если второй множитель положительный, то результат отрицаетльный
-            res = nat.MUL_NN_N(ABS_Z_N(x), ABS_Z_N(y))
-            res.insert(0, 1)
-    elif POZ_Z_D(x) == 2:  # Если первый множитель положительный то:
-        if POZ_Z_D(y) == 1:  # если второй множитель отрицательны то
-            res = nat.MUL_NN_N(ABS_Z_N(x), ABS_Z_N(y))  # результат отрицательный
-            res.insert(0, 1)
-        elif POZ_Z_D(y) == 0:  # если второй множитель равен нулю, то результат равен нулю
-            res = 0
-        elif POZ_Z_D(y) == 2:  # если второй множитель положителен, то результат положителен
-            res = nat.MUL_NN_N(ABS_Z_N(x), ABS_Z_N(y))
-    elif POZ_Z_D(x) == 0:  # Если первый множитель равен нулю, то результат равен нулю
-        res = 0
-    return res
+    if POZ_Z_D(list1) and POZ_Z_D(list2):
+        if (POZ_Z_D(list1) == '' and POZ_Z_D(list2) == '') or (POZ_Z_D(list1) == '-' and POZ_Z_D(list2) == '-'):
+            return nat.MUL_NN_N(ABS_Z_N(list1), ABS_Z_N(list1))
+        else:
+            return ['-'] + nat.MUL_NN_N(ABS_Z_N(list1), ABS_Z_N(list1))
+    else:
+        return 0
 
 
 def DIV_ZZ_Z(celoe1, celoe2):

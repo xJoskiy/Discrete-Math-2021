@@ -21,16 +21,16 @@ def ABS_Z_N(celoe):
         return celoe
 
 
-def ADD_ZZ_Z(list1, list2):
+def SUB_ZZ_Z(list1, list2):
     # Семёнов Михаил
     # Вычитание целых чисел
     if POZ_Z_D(list1) == '+' and POZ_Z_D(list2) == '-':
-        return ADD_NN_N(list1, ABS_Z_N(list2))
+        return nat.ADD_NN_N(list1, ABS_Z_N(list2))
     elif POZ_Z_D(list1) == '-' and POZ_Z_D(list2) == '+':
-        return ['-'] + ADD_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
-    elif COM_NN_D(ABS_Z_N(list1), ABS_Z_N(list2)) == 2 :
+        return ['-'] + nat.ADD_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
+    elif nat.COM_NN_D(ABS_Z_N(list1), ABS_Z_N(list2)) == 2 :
         if list2 != [0]:
-            return  SUB_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
+            return  nat.SUB_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
         else :
             return list1
     elif POZ_Z_D(list1) == 0 :
@@ -43,9 +43,9 @@ def ADD_ZZ_Z(list1, list2):
 
     else:
         if POZ_Z_D(list1) == '+':
-            return ['-'] + SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
+            return ['-'] + nat.SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
         else :
-            return  SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
+            return  nat.SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
   
 
 def ADD_ZZ_Z(list1, list2):

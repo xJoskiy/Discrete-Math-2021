@@ -13,11 +13,13 @@ def INT_Q_B(Q):
 
 
 def RED_Q_Q(Q):
-    Q[0] = integer.DIV_ZZ_Z(Q[0], nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), Q[1]))
-    Q[1] = integer.DIV_ZZ_Z(Q[1], nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), Q[1]))
-    return [Q[0], Q[1]]
-    # Гурьянов Савелий Числитель и знаменатель делятся на НОД знаменателя и числителя(числитель преобразуется к
-    # натуральному числу при помощи функции ABS_Z_N)
+    #Гурьянов Савелий
+    #Сокращение дроби
+    result = [[0],[0]]
+    nod = nat.GCF_NN_N(ABS_Z_N(Q[0]),ABS_Z_N(Q[1]))#нод числителя и знаменателя
+    result[0] = integer.DIV_ZZ_Z(Q[0],nod)#делим числитель на нод
+    result[1] = integer.DIV_ZZ_Z(Q[1],nod)#делим знаменатель на нод
+    return result
 
 
 def ADD_QQ_Q(list1, list2):

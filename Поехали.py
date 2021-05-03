@@ -5,6 +5,12 @@ import rational as rat
 import polynome as pol
 
 
+def StrToRat(seq):
+    seq = StrToList(seq)
+    Rat = [seq[:seq.index('/')], seq[seq.index('/') + 1:]]
+    return Rat
+
+
 def StrToList(seq):
     res = []
     for i in seq:
@@ -252,7 +258,7 @@ def open_window_rat_sum():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update()
+            window['out'].update(ListToStr(rat.ADD_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -269,7 +275,7 @@ def open_window_rat_sub():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update()
+            window['out'].update(ListToStr(rat.SUB_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -285,15 +291,8 @@ def open_window_rat_prod():
     window = sg.Window('The product of rational numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
-        x = []
-        y = []
-        i = 0
-        while values['dig1'] != "/":
-            x.append(values['dig1'][i])
-            i = 0
-        y.append(list(map(int, values['dig1'][i + 1:])))
         if event == "start":
-            window['out'].update()
+            window['out'].update(ListToStr(rat.MUL_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -310,8 +309,7 @@ def open_window_rat_quot():
     while True:
         event, values = window.read()
         if event == "start":
-
-            window['out'].update()
+            window['out'].update(ListToStr(rat.DIV_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -327,7 +325,7 @@ def open_window_rat_red():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update()
+            window['out'].update(ListToStr(rat.RED_Q_Q(StrToRat(values['dig1']))))
         if event == sg.WINDOW_CLOSED:
             break
 

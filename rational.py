@@ -1,19 +1,19 @@
-from natural import *
-from integer import *
+import natural as nat
+import integer as integer
 
 
 def INT_Q_B(Q):
     numerator = Q[0]
     denominator = Q[1]
-    return not MOD_NN_N([numerator[1], numerator[2]], denominator)
+    return not nat.MOD_NN_N([numerator[1], numerator[2]], denominator)
     # Гурьянов Савелий Функция возвращает отрицание результата остатка от деления числителя, преобразованного к
     # натуральному числу, на натуральный знаменатель, если остаток равен нулю, то дробь преобразуется к натуральному
     # числу, иначе не преобразуется и вернётся 0
 
 
 def RED_Q_Q(Q):
-    Q[0] = DIV_ZZ_Z(Q[0], [0] + GCF_NN_N(ABS_Z_N(Q[0]), Q[1]))
-    Q[1] = DIV_ZZ_Z([0] + Q[1], [0] + GCF_NN_N(ABS_Z_N(Q[0]), Q[1]))[1:]
+    Q[0] = integer.DIV_ZZ_Z(Q[0], [0] + nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), Q[1]))
+    Q[1] = integer.DIV_ZZ_Z([0] + Q[1], [0] + nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), Q[1]))[1:]
     return [Q[0], Q[1]]
     # Гурьянов Савелий Числитель и знаменатель делятся на НОД знаменателя и числителя(числитель преобразуется к
     # натуральному числу при помощи функции ABS_Z_N)
@@ -36,16 +36,16 @@ def ADD_QQ_Q(list1, list2):
     prt1 = list1[0]
     prt2 = list2[0]
     # НОК и есть новый знаменатель дробей
-    nok = LCM_NN_N(zn1, zn2)
+    nok = nat.LCM_NN_N(zn1, zn2)
     # Находим множители при числителях дробей
-    mn1 = DIV_ZZ_Z([0] + nok, [0] + zn1)
-    mn2 = DIV_ZZ_Z([0] + nok, [0] + zn2)
+    mn1 = integer.DIV_ZZ_Z([0] + nok, [0] + zn1)
+    mn2 = integer.DIV_ZZ_Z([0] + nok, [0] + zn2)
     # Находим сами числители, а затем и их сумму
-    ch1_new = MUL_ZZ_Z([0] + ch1, mn1)
-    ch2_new = MUL_ZZ_Z([0] + ch2, mn2)
+    ch1_new = integer.MUL_ZZ_Z([0] + ch1, mn1)
+    ch2_new = integer.MUL_ZZ_Z([0] + ch2, mn2)
     ch1_new[0] = prt1
     ch2_new[0] = prt2
-    newCh = ADD_ZZ_Z(ch1, ch2)
+    newCh = integer.ADD_ZZ_Z(ch1, ch2)
     # Возвращаем новые числитель и знаменатель
     return newCh + ['/'] + nok
 
@@ -69,12 +69,12 @@ def DIV_QQ_Q(x, y):
         x2 = "0" + x[x.index('/') + 1:]
         y1 = y[:y.index('/')]
         y2 = "0" + y[y.index('/') + 1:]
-        if (MUL_ZZ_Z(x1, y2)[0] == 1) and (MUL_ZZ_Z(x2, y1)[0] == 1):
-            res = MUL_ZZ_Z(x1, y2)[1:] + "/" + MUL_ZZ_Z(x2, y1)[1:]
-        elif (MUL_ZZ_Z(x1, y2)[0] == 0) and (MUL_ZZ_Z(x2, y1)[0] == 0):
-            res = MUL_ZZ_Z(x1, y2)[1:] + "/" + MUL_ZZ_Z(x2, y1)[1:]
+        if (integer.MUL_ZZ_Z(x1, y2)[0] == 1) and (integer.MUL_ZZ_Z(x2, y1)[0] == 1):
+            res = integer.MUL_ZZ_Z(x1, y2)[1:] + '/' + integer.MUL_ZZ_Z(x2, y1)[1:]
+        elif (integer.MUL_ZZ_Z(x1, y2)[0] == 0) and (integer.MUL_ZZ_Z(x2, y1)[0] == 0):
+            res = integer.MUL_ZZ_Z(x1, y2)[1:] + '/' + integer.MUL_ZZ_Z(x2, y1)[1:]
         else:
-            res = "-" + MUL_ZZ_Z(x1, y2)[1:] + "/" + MUL_ZZ_Z(x2, y1)[1:]
+            res = "-" + integer.MUL_ZZ_Z(x1, y2)[1:] + '/' + integer.MUL_ZZ_Z(x2, y1)[1:]
     return res
 
 
@@ -116,9 +116,9 @@ def MUL_QQ_Q(rational1, rational2):  # на вход функция получа
         chisl2 = rational2[0:count2]  # числитель второго числа
         znam2 = rational2[count2 + 1:]  # знаменатель второго числа
 
-    chisl_res = MUL_ZZ_Z(chisl1, chisl2)  # умножение числителя первой дроби на числитель второй дроби
+    chisl_res = integer.MUL_ZZ_Z(chisl1, chisl2)  # умножение числителя первой дроби на числитель второй дроби
 
-    znam_res = MUL_ZZ_Z(znam1, znam2)  # умножение знаменателя первой дроби на знаменатель второй дроби
+    znam_res = integer.MUL_ZZ_Z(znam1, znam2)  # умножение знаменателя первой дроби на знаменатель второй дроби
 
     rational = chisl_res + ['/'] + znam_res  # записываем дробь в список
 
@@ -154,12 +154,12 @@ def SUB_QQ_Q(list1, list2):
     k1 = list1[beginning_znam1:]
     beginning_znam2 = list1.index('/')
     k2 = list2[beginning_znam2:]
-    znam = LCM_NN_N(k1, k2)
-    add1 = DIV_NN_N(znam, k1)
-    add2 = DIV_NN_N(znam, k2)
-    chisl1 = MUL_ZZ_Z(add1, list1[:beginning_znam1 - 1])
-    chisl2 = MUL_ZZ_Z(add2, list2[:beginning_znam2 - 1])
-    result = SUB_ZZ_Z(chisl1, chisl2)
+    znam = nat.LCM_NN_N(k1, k2)
+    add1 = nat.DIV_NN_N(znam, k1)
+    add2 = nat.DIV_NN_N(znam, k2)
+    chisl1 = integer.MUL_ZZ_Z(add1, list1[:beginning_znam1 - 1])
+    chisl2 = integer.MUL_ZZ_Z(add2, list2[:beginning_znam2 - 1])
+    result = integer.SUB_ZZ_Z(chisl1, chisl2)
     res = []
     res = result[1:] + ['/'] + znam
     return res
@@ -173,7 +173,7 @@ def INT_Q_B(A):
     while A[i] != '/':
         x.append(A[i])
     y = A[i + 1:]
-    if MOD_NN_N(x, y) == 0:
+    if nat.MOD_NN_N(x, y) == 0:
         return "Да"
     else:
         return "Нет"
@@ -202,12 +202,12 @@ def SUB_QQ_Q(list1, list2):
     k1 = list1[beginning_znam1:]
     beginning_znam2 = list1.index('/')
     k2 = list2[beginning_znam2:]
-    znam = LCM_NN_N(k1, k2)
-    add1 = DIV_NN_N(znam, k1)
-    add2 = DIV_NN_N(znam, k2)
-    chisl1 = MUL_ZZ_Z(add1, list1[:beginning_znam1 - 1])
-    chisl2 = MUL_ZZ_Z(add2, list2[:beginning_znam2 - 1])
-    result = SUB_ZZ_Z(chisl1, chisl2)
+    znam = nat.LCM_NN_N(k1, k2)
+    add1 = nat.DIV_NN_N(znam, k1)
+    add2 = nat.DIV_NN_N(znam, k2)
+    chisl1 = integer.MUL_ZZ_Z(add1, list1[:beginning_znam1 - 1])
+    chisl2 = integer.MUL_ZZ_Z(add2, list2[:beginning_znam2 - 1])
+    result = integer.SUB_ZZ_Z(chisl1, chisl2)
     res = []
     res = result[1:] + ['/'] + znam
     return res

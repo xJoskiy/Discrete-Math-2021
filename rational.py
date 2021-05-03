@@ -3,9 +3,10 @@ import integer as integer
 
 
 def INT_Q_B(Q):
-    numerator = Q[0]
-    denominator = Q[1]
-    return not nat.MOD_NN_N([numerator[1], numerator[2]], denominator)
+    if nat.MOD_NN_N(integer.ABS_Z_N(Q[0]), Q[1]) == [0]:
+        return True
+    else:
+        return False
     # Гурьянов Савелий Функция возвращает отрицание результата остатка от деления числителя, преобразованного к
     # натуральному числу, на натуральный знаменатель, если остаток равен нулю, то дробь преобразуется к натуральному
     # числу, иначе не преобразуется и вернётся 0

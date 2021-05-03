@@ -1,3 +1,21 @@
+def POZ_Z_D(mas):  # на вход функция получает целое число
+    # Семёнов Михаил
+    # Знак целого числа
+    if mas[0] == '-':  # первый символ числа "-"
+        return mas[0]
+    else:
+        return ''
+
+
+def ABS_Z_N(x):
+    # Семёнов Михаил
+    # Модуль целого числа
+    if POZ_Z_D(x) == '-':
+        return x[1:]
+    else:
+        return x
+
+
 def COM_NN_D(x, y):
     # Аносов Павел
     # Сравнение двух чисел
@@ -240,3 +258,4 @@ def GCF_NN_N(list1, list2):
     else:
         k = num1
     return k
+

@@ -25,7 +25,6 @@ def ListToStr(seq):
     return ''.join(map(str, seq))
 
 
-
 def open_window_nat_sum():
     layout = [
         [sg.Text('Enter two naturals')],

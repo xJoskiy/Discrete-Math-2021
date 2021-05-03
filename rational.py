@@ -59,6 +59,7 @@ def TRANS_Q_Z(list):
     newList = list[:i]
     return newList
 
+
 def DIV_QQ_Q(rational1, rational2):
     # Деление дробей
     # Кривоконь Максим
@@ -72,11 +73,9 @@ def MUL_QQ_Q(rational1, rational2):  # на вход функция получа
     # Семёнов Михаил
     # Умножение дробей
     result = [[0], [0]] # результат умножения
-    result[0] = integer.MUL_ZZ_Z(rational1[0],rational2[0]) # умножение числителей
-    result[1] = integer.MUL_ZZ_Z(rational2[1],rational2[1]) # умножение знаменателей
+    result[0] = MUL_ZZ_Z(rational1[0],rational2[0]) # умножение числителей
+    result[1] = MUL_ZZ_Z(rational1[1],rational2[1]) # умножение знаменателей
     rez = RED_Q_Q(result) # сокращение дроби
-
-    return rez
 
 def TRANS_Z_Q(x):
     # Артамонов Артур, гр.0306

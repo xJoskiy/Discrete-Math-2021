@@ -12,13 +12,18 @@ def INT_Q_B(Q):
     # числу, иначе не преобразуется и вернётся 0
 
 
+
+
 def RED_Q_Q(Q):
     #Гурьянов Савелий
     #Сокращение дроби
     result = [[0],[0]]
-    nod = nat.GCF_NN_N(ABS_Z_N(Q[0]),ABS_Z_N(Q[1]))#нод числителя и знаменателя
-    result[0] = integer.DIV_ZZ_Z(Q[0],nod)#делим числитель на нод
-    result[1] = integer.DIV_ZZ_Z(Q[1],nod)#делим знаменатель на нод
+    nod = nat.GCF_NN_N(ABS_Z_N(Q[0]),ABS_Z_N(Q[1]))
+    result[0] = integer.DIV_ZZ_Z(Q[0],nod)
+    result[1] = integer.DIV_ZZ_Z(Q[1],nod)
+    if integer.POZ_Z_D(result[0]) == '-' and integer.POZ_Z_D(result[1]) =='-':
+        result[0] = result[0][1:]
+        result[1] = result[1][1:]
     return result
 
 

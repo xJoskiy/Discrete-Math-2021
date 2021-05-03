@@ -60,33 +60,22 @@ def TRANS_Q_Z(list):
     return newList
 
 
-def DIV_QQ_Q(x, y):
+def DIV_QQ_Q(rational1, rational2):
     # Деление дробей
     # Кривоконь Максим
-    if x[1] == 0:
-        res = 0
-    else:
-        x1 = x[:x.index('/')]
-        x2 = "0" + x[x.index('/') + 1:]
-        y1 = y[:y.index('/')]
-        y2 = "0" + y[y.index('/') + 1:]
-        if (integer.MUL_ZZ_Z(x1, y2)[0] == 1) and (integer.MUL_ZZ_Z(x2, y1)[0] == 1):
-            res = integer.MUL_ZZ_Z(x1, y2)[1:] + '/' + integer.MUL_ZZ_Z(x2, y1)[1:]
-        elif (integer.MUL_ZZ_Z(x1, y2)[0] == 0) and (integer.MUL_ZZ_Z(x2, y1)[0] == 0):
-            res = integer.MUL_ZZ_Z(x1, y2)[1:] + '/' + integer.MUL_ZZ_Z(x2, y1)[1:]
-        else:
-            res = "-" + integer.MUL_ZZ_Z(x1, y2)[1:] + '/' + integer.MUL_ZZ_Z(x2, y1)[1:]
+    result = [[0], [0]]
+    result[0] = MUL_ZZ_Z(rational1[0], rational2[1])  # умножение числителя на знаменатель
+    result[1] = MUL_ZZ_Z(rational1[1], rational2[0])  # умножение знаменателя на числитель
+    res = RED_Q_Q(result)  # сокращение дроби
     return res
 
 def MUL_QQ_Q(rational1, rational2):  # на вход функция получает 2 рациональных числа
     # Семёнов Михаил
     # Умножение дробей
     result = [[0], [0]] # результат умножения
-    result[0] = integer.MUL_ZZ_Z(rational1[0],rational2[0]) # умножение числителей
-    result[1] = integer.MUL_ZZ_Z(rational2[1],rational2[1]) # умножение знаменателей
+    result[0] = MUL_ZZ_Z(rational1[0],rational2[0]) # умножение числителей
+    result[1] = MUL_ZZ_Z(rational1[1],rational2[1]) # умножение знаменателей
     rez = RED_Q_Q(result) # сокращение дроби
-
-    return rez
 
 def TRANS_Z_Q(x):
     # Артамонов Артур, гр.0306

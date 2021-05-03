@@ -126,7 +126,7 @@ def open_window_nat_lcm():
     layout = [
         [sg.Text('Enter two naturals')],
         [sg.Input(key='dig1')],
-        [sg.Button('LCD', key='start')],
+        [sg.Button('LCM', key='start')],
         [sg.Input(key='dig2')],
         [sg.Text(size=(400, 10), key='out')]
     ]

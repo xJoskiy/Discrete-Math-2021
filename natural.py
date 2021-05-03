@@ -97,19 +97,17 @@ def SUB_NDN_N(nat1, nat2, number):
     # Семёнов Михаил
     # Вычитание из натурального числа другого натурального числа ,умноженного на цифру
     # Результат только для положительных значений
-    r = []
     nat0 = nat2
     nat2_mull_nd_n = MUL_ND_N(nat0, number)  # функция умножения второго числа на цифру
     if COM_NN_D(nat1, nat2_mull_nd_n) != 1:  # если первое число больше второго умноженного на цифру
-        r = SUB_NN_N(nat1, nat2_mull_nd_n)  # вычитаем из первого второе ,умноженное на цифру
-    return r
+        return SUB_NN_N(nat1, nat2_mull_nd_n)  # вычитаем из первого второе, умноженное на цифру
 
 
 def DIV_NN_N(a, b):
     # Аносов Павел
     # Частное от деления большего натурального числа на меньшее или равное натуральное с остатком
     count = 0
-    if NZER_N_B(a) == "Нет" and NZER_N_B(b) == "Нет":
+    if not NZER_N_B(a) and not NZER_N_B(b):
         while True:
             if COM_NN_D(a, b) != 1:
                 a = SUB_NN_N(a, b)
@@ -166,8 +164,8 @@ def NZER_N_B(x):
     # Проверка на 0. Если число = 0, то да, иначе нет
 
     if x[0] == 0:
-        return "Да"
-    return "Нет"
+        return True
+    return False
 
 
 def ADD_NN_N(mas1, mas2):
@@ -213,7 +211,7 @@ def MUL_NN_N(nat1, nat2):
     # Умножение натуральных чисел
     nat2 = nat2[::-1]  # разворот списка
     sum = []
-    if NZER_N_B(nat1) == "Нет" and NZER_N_B(nat2) == "Нет":
+    if not NZER_N_B(nat1) and not NZER_N_B(nat2):
         for i in range(len(nat2)):  # проход по цифрам второго числа
             if nat2[i] != 0:  # если не 0
                 rez = MUL_ND_N(nat1, int(nat2[i]))  # умножаем число на цифру
@@ -232,7 +230,7 @@ def GCF_NN_N(list1, list2):
     # Нахождение НОД по алгоритму Евклида, используя остаток от деления одного числа на другое
     num1 = list1
     num2 = list2
-    while NZER_N_B(num1) == "Нет" and NZER_N_B(num2) == "Нет":
+    while not NZER_N_B(num1) and not NZER_N_B(num2):
         if COM_NN_D(num1, num2) == 2:
             num1 = MOD_NN_N(num1, num2)
         else:

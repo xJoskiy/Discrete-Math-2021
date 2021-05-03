@@ -63,7 +63,7 @@ def MUL_ZM_Z(x):
 def MUL_ZZ_Z(list1, list2):
     # Умножение целых чисел
     # Кривоконь Максим
-    if nat.NZER_N_B(list1) == "Нет" and nat.NZER_N_B(list2) == "Нет":
+    if not nat.NZER_N_B(list1) and not nat.NZER_N_B(list2):
         if (POZ_Z_D(list1) == '' and POZ_Z_D(list2) == '') or (POZ_Z_D(list1) == '-' and POZ_Z_D(list2) == '-'):
             return nat.MUL_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
         else:
@@ -77,7 +77,7 @@ def DIV_ZZ_Z(x, y):
     # Частное от деления целого на целое
     if POZ_Z_D(x) == POZ_Z_D(y):
         return nat.DIV_NN_N(ABS_Z_N(x), ABS_Z_N(y))
-    elif nat.NZER_N_B(x) == "Да" or nat.NZER_N_B(x) == "Да":
+    elif nat.NZER_N_B(x) or nat.NZER_N_B(x):
         return ["Unable to calculate"]
     else:
         return ['-'] + nat.DIV_NN_N(ABS_Z_N(x), ABS_Z_N(y))

@@ -13,8 +13,8 @@ def INT_Q_B(Q):
 
 
 def RED_Q_Q(Q):
-    Q[0] = integer.DIV_ZZ_Z(Q[0], [0] + nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), Q[1]))
-    Q[1] = integer.DIV_ZZ_Z([0] + Q[1], [0] + nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), Q[1]))[1:]
+    Q[0] = integer.DIV_ZZ_Z(Q[0], nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), Q[1]))
+    Q[1] = integer.DIV_ZZ_Z(Q[1], nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), Q[1]))
     return [Q[0], Q[1]]
     # Гурьянов Савелий Числитель и знаменатель делятся на НОД знаменателя и числителя(числитель преобразуется к
     # натуральному числу при помощи функции ABS_Z_N)

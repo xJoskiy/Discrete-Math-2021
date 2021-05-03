@@ -10,13 +10,13 @@ def POZ_Z_D(mas):  # на вход функция получает целое ч
         return ''
 
 
-def ABS_Z_N(celoe):
+def ABS_Z_N(x):
     # Семёнов Михаил
     # Модуль целого числа
-    if POZ_Z_D(celoe) == '-':
-        return celoe[1:]
+    if POZ_Z_D(x) == '-':
+        return x[1:]
     else:
-        return celoe
+        return x
 
 
 def SUB_ZZ_Z(list1, list2):
@@ -36,7 +36,7 @@ def ADD_ZZ_Z(list1, list2):
         return nat.ADD_NN_N(list1, list2)
     elif POZ_Z_D(list1) == '-' and POZ_Z_D(list2) == '-':
         return ['-'] + nat.ADD_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
-    elif nat.COM_NN_D(ABS_Z_N(list1), ABS_Z_N(list2)) == 2:
+    elif nat.COM_NN_D(ABS_Z_N(list1), ABS_Z_N(list2)) != 1:
         return [POZ_Z_D(list1)] + nat.SUB_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
     else:
         return [POZ_Z_D(list2)] + nat.SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
@@ -45,8 +45,8 @@ def ADD_ZZ_Z(list1, list2):
 def MOD_ZZ_Z(num1, num2):
     # Дашкин Дамир
     # Остаток от деления целых чисел
-    q = DIV_ZZ_Z(num1, num2)
-    k = MUL_ZZ_Z(q, num2)
+    q = DIV_ZZ_Z(num1, num2)  # Частное от деления
+    k = MUL_ZZ_Z(q, num2)     # Произведения частного на число этого частного
     return SUB_ZZ_Z(num1, k)
 
 
@@ -78,6 +78,6 @@ def DIV_ZZ_Z(x, y):
     if POZ_Z_D(x) == POZ_Z_D(y):
         return nat.DIV_NN_N(ABS_Z_N(x), ABS_Z_N(y))
     elif nat.NZER_N_B(x) == "Да" or nat.NZER_N_B(x) == "Да":
-        return ['-'] + nat.DIV_NN_N(ABS_Z_N(x), ABS_Z_N(y))
-    else:
         return ["Unable to calculate"]
+    else:
+        return ['-'] + nat.DIV_NN_N(ABS_Z_N(x), ABS_Z_N(y))

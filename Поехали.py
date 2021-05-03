@@ -117,7 +117,7 @@ def open_window_nat_gcd():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.GCF_NN_N(StrToList(values['dig1']), StrToList(values['dig2'])))
+            window['out'].update(ListToStr(nat.GCF_NN_N(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -134,7 +134,7 @@ def open_window_nat_lcm():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(nat.LCM_NN_N(StrToList(values['dig1']), StrToList(values['dig2'])))
+            window['out'].update(ListToStr(nat.LCM_NN_N(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 

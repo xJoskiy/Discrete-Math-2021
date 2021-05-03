@@ -103,12 +103,15 @@ def DIV_NN_N(a, b):
     # Аносов Павел
     # Частное от деления большего натурального числа на меньшее или равное натуральное с остатком
     count = 0
-    while True:
-        if COM_NN_D(a, b) != 1:
-            a = SUB_NN_N(a, b)
-            count += 1
-        else:
-            break
+    if NZER_N_B(a) == "Нет" and NZER_N_B(b) == "Нет":
+        while True:
+            if COM_NN_D(a, b) != 1:
+                a = SUB_NN_N(a, b)
+                count += 1
+            else:
+                break
+    else:
+        return ["Unable to calculate"]
     return list(map(int, (str(count))))
 
 
@@ -205,14 +208,17 @@ def MUL_NN_N(nat1, nat2):
     # Умножение натуральных чисел
     nat2 = nat2[::-1]  # разворот списка
     sum = []
-    for i in range(len(nat2)):  # проход по цифрам второго числа
-        if nat2[i] != 0:  # если не 0
-            rez = MUL_ND_N(nat1, int(nat2[i]))  # умножаем число на цифру
-            rez = rez + i * [0]  # прибавляем разряды
-            if sum:  # если список не пустой
-                sum = ADD_NN_N(sum, rez)  # складываем два натуральных числа
-            else:
-                sum = rez  # присваиваем списку значения списка rez
+    if NZER_N_B(nat1) == "Нет" and NZER_N_B(nat2) == "Нет":
+        for i in range(len(nat2)):  # проход по цифрам второго числа
+            if nat2[i] != 0:  # если не 0
+                rez = MUL_ND_N(nat1, int(nat2[i]))  # умножаем число на цифру
+                rez = rez + i * [0]  # прибавляем разряды
+                if sum:  # если список не пустой
+                    sum = ADD_NN_N(sum, rez)  # складываем два натуральных числа
+                else:
+                    sum = rez  # присваиваем списку значения списка rez
+    else:
+        sum = [0]
     return sum
 
 

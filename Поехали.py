@@ -122,7 +122,7 @@ def open_window_nat_gcd():
             break
 
 
-def open_window_nat_lcd():
+def open_window_nat_lcm():
     layout = [
         [sg.Text('Enter two naturals')],
         [sg.Input(key='dig1')],
@@ -130,7 +130,7 @@ def open_window_nat_lcd():
         [sg.Input(key='dig2')],
         [sg.Text(size=(400, 10), key='out')]
     ]
-    window = sg.Window('Least Common Divisor of natural numbers', layout, size=(460, 260), resizable=True)
+    window = sg.Window('Least Common Multiple of natural numbers', layout, size=(460, 260), resizable=True)
     while True:
         event, values = window.read()
         if event == "start":
@@ -218,7 +218,7 @@ def open_window_int_mod():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(integer.MOD_ZZ_Z(StrToList(values['dig1']), StrToList(values['dig2'])))
+            window['out'].update(ListToStr(integer.MOD_ZZ_Z(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -238,7 +238,6 @@ def open_window_int_quot():
             window['out'].update(ListToStr(integer.DIV_ZZ_Z(StrToList(values['dig1']), StrToList(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
-
 
 
 def open_window_rat_sum():
@@ -412,8 +411,8 @@ def Operation_with_Naturals(event):
         open_window_nat_quot()
     if event == "Mod_Nat":
         open_window_nat_mod()
-    if event == "LCD_Nat":
-        open_window_nat_lcd()
+    if event == "LCM_Nat":
+        open_window_nat_lcm()
     if event == "GCD_Nat":
         open_window_nat_gcd()
 
@@ -457,7 +456,7 @@ def Operation_with_Polynomials(event):
         open_window_pol_quot()
 
 
-menu = [['&Naturals', ['Sum_Nat', 'Sub_Nat', 'Product_Nat', 'Quotient_Nat', 'Mod_Nat', 'LCD_Nat', 'GCD_Nat']],
+menu = [['&Naturals', ['Sum_Nat', 'Sub_Nat', 'Product_Nat', 'Quotient_Nat', 'Mod_Nat', 'LCM_Nat', 'GCD_Nat']],
         ['&Integers', ['Module', 'Sum_Int', 'Sub_Int', 'Product_Int', 'Quotient_Int', 'Mod_Int']],
         ['&Rationals', ['Sum_Rat', 'Sub_Rat', 'Product_Rat', 'Quotient_Rat', 'Fraction reduction']],
         ['&Polynomials', ['Sum_Pol', 'Sub_Pol', 'Product_Pol', 'Quotient_Pol']]

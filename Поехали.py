@@ -11,6 +11,13 @@ def StrToRat(seq):
     return Rat
 
 
+def RatToStr(x):
+    if len(x) == 2:
+        return ListToStr(x[0]) + '/' + ListToStr(x[1])
+    else:
+        return ListToStr(x[0])
+
+
 def StrToList(seq):
     res = []
     for i in seq:
@@ -257,7 +264,7 @@ def open_window_rat_sum():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(ListToStr(rat.ADD_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
+            window['out'].update(RatToStr(rat.ADD_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 

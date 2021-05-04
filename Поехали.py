@@ -12,9 +12,9 @@ def StrToRat(seq):
 
 
 def RatToStr(x):
-    if len(x) == 2:
+    try:
         return ListToStr(x[0]) + '/' + ListToStr(x[1])
-    else:
+    except:
         return ListToStr(x)
 
 

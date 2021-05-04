@@ -14,11 +14,12 @@ def RED_Q_Q(Q):
     # Сокращение дроби
     if integer.POZ_Z_D(Q[0]):
         if INT_Q_B(Q):
-            nod = nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), nat.ABS_Z_N(Q[1]))
+            nod = nat.GCF_NN_N(integer.ABS_Z_N(Q[0]), integer.ABS_Z_N(Q[1]))
             Q[0] = integer.DIV_ZZ_Z(Q[0], nod)
             Q[1] = integer.DIV_ZZ_Z(Q[1], nod)
         return TRANS_Q_Z(Q)
-    return [0]
+    else:
+        return [0]
 
 
 def ADD_QQ_Q(list1, list2):

@@ -176,11 +176,10 @@ def DIV_NN_Dk(N1, N2):
     else:
         return DIV_NN_Dk(N2, N1)
 
-
+    
 def NZER_N_B(x):
     # Артамонов Артур, гр.0306
     # Проверка на 0. Если число = 0, то да, иначе нет
-
     if x[0] == 0 and len(x) == 1:
         return True
     return False

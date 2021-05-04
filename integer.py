@@ -6,6 +6,8 @@ def POZ_Z_D(mas):  # на вход функция получает целое ч
     # Знак целого числа
     if mas[0] == '-':  # первый символ числа "-"
         return mas[0]
+    elif mas[0] == [0]:
+        return mas[0]
     else:
         return ''
 

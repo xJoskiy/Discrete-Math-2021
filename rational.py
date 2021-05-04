@@ -73,6 +73,9 @@ def DIV_QQ_Q(rational1, rational2):
     result = [[0], [0]]
     result[0] = integer.MUL_ZZ_Z(rational1[0], rational2[1])  # умножение числителя на знаменатель
     result[1] = integer.MUL_ZZ_Z(rational2[1], rational2[0])  # умножение знаменателя на числитель
+    if POZ_Z_D(result[0]) == '' and POZ_Z_D(result[1]) == '-':
+        result[0] = MUL_ZM_Z(result[0])
+        result[1] = MUL_ZM_Z(result[1])
     res = RED_Q_Q(result)  # сокращение дроби
     return res
 

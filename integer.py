@@ -38,16 +38,18 @@ def ADD_ZZ_Z(list1, list2):
         return nat.ADD_NN_N(list1, list2)
     elif POZ_Z_D(list1) == '-' and POZ_Z_D(list2) == '-':
         return ['-'] + nat.ADD_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
-    elif nat.COM_NN_D(ABS_Z_N(list1), ABS_Z_N(list2)) != 1:
-        if POZ_Z_D(list1) == '+':
-            return nat.SUB_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
-        else:
+    elif nat.COM_NN_D(ABS_Z_N(list1), ABS_Z_N(list2)) == 2:
+        if POZ_Z_D(list1) == '-':
             return ['-'] + nat.SUB_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
-    else:
-        if POZ_Z_D(list2) == '+':
-            return nat.SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
         else:
+            return nat.SUB_NN_N(ABS_Z_N(list1), ABS_Z_N(list2))
+    elif nat.COM_NN_D(ABS_Z_N(list1), ABS_Z_N(list2)) == 1:
+        if POZ_Z_D(list2) == '-':
             return ['-'] + nat.SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
+        else:
+            return nat.SUB_NN_N(ABS_Z_N(list2), ABS_Z_N(list1))
+    elif nat.COM_NN_D(ABS_Z_N(list1), ABS_Z_N(list2)) == 0:
+        return [0]
 
 
 def MOD_ZZ_Z(num1, num2):

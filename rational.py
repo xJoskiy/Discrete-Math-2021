@@ -3,20 +3,18 @@ import integer as integer
 
 
 def INT_Q_B(Q):
-    return nat.NZER_N_B(nat.MOD_NN_N(integer.ABS_Z_N(Q[0]), Q[1]))
-    # Гурьянов Савелий Функция возвращает отрицание результата остатка от деления числителя, преобразованного к
-    # натуральному числу, на натуральный знаменатель, если остаток равен нулю, то дробь преобразуется к натуральному
-    # числу, иначе не преобразуется и вернётся 0
+    return not nat.NZER_N_B(nat.MOD_NN_N(integer.ABS_Z_N(Q[0]), Q[1]))
+    # Гурьянов Савелий
+    # Проверка на целое
 
 
 def RED_Q_Q(Q):
     # Гурьянов Савелий
     # Сокращение дроби
     if integer.POZ_Z_D(Q[0]):
-        if INT_Q_B(Q):
-            nod = nat.GCF_NN_N(integer.ABS_Z_N(Q[0]), integer.ABS_Z_N(Q[1]))
-            Q[0] = integer.DIV_ZZ_Z(Q[0], nod)
-            Q[1] = integer.DIV_ZZ_Z(Q[1], nod)
+        nod = nat.GCF_NN_N(integer.ABS_Z_N(Q[0]), integer.ABS_Z_N(Q[1]))
+        Q[0] = integer.DIV_ZZ_Z(Q[0], nod)
+        Q[1] = integer.DIV_ZZ_Z(Q[1], nod)
         return TRANS_Q_Z(Q)
     else:
         return [0]
@@ -41,10 +39,14 @@ def DIV_QQ_Q(rational1, rational2):
     # Кривоконь Максим
     result = [[0], [0]]
     result[0] = integer.MUL_ZZ_Z(rational1[0], rational2[1])  # умножение числителя на знаменатель
-    result[1] = integer.MUL_ZZ_Z(rational2[1], rational2[0])  # умножение знаменателя на числитель
-    if integer.POZ_Z_D(result[0]) == '' and integer.POZ_Z_D(result[1]) == '-':
+    result[1] = integer.MUL_ZZ_Z(rational1[1], rational2[0])  # умножение знаменателя на числитель
+    if integer.POZ_Z_D(result[0]) == '-' and integer.POZ_Z_D(result[1]) == '-':
         result[0] = integer.MUL_ZM_Z(result[0])
         result[1] = integer.MUL_ZM_Z(result[1])
+    elif integer.POZ_Z_D(result[1]) == '-':
+        result[1] = integer.ABS_Z_N(result[1])
+        result[0] = integer.MUL_ZM_Z(result[0])
+
     return RED_Q_Q(result)  # сокращение дроби
 
 
@@ -60,7 +62,7 @@ def MUL_QQ_Q(rational1, rational2):  # на вход функция получа
 def TRANS_Q_Z(x):
     # Артамонов Артур, гр.0306
     # Преобразование дробного в целое, если знам. = 1
-    if x[1][-1] == 1:
+    if x[1][-1] == 1 and len(x[1]) == 1:
         return x[0]
     else:
         return x

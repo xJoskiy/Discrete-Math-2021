@@ -15,7 +15,7 @@ def RatToStr(x):
     if len(x) == 2:
         return ListToStr(x[0]) + '/' + ListToStr(x[1])
     else:
-        return ListToStr(x[0])
+        return ListToStr(x)
 
 
 def StrToList(seq):
@@ -281,7 +281,7 @@ def open_window_rat_sub():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(ListToStr(rat.SUB_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
+            window['out'].update(RatToStr(rat.SUB_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -298,7 +298,7 @@ def open_window_rat_prod():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(ListToStr(rat.MUL_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
+            window['out'].update(RatToStr(rat.MUL_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -315,7 +315,7 @@ def open_window_rat_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(ListToStr(rat.DIV_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
+            window['out'].update(RatToStr(rat.DIV_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -331,7 +331,7 @@ def open_window_rat_red():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(ListToStr(rat.RED_Q_Q(StrToRat(values['dig1']))))
+            window['out'].update(RatToStr(rat.RED_Q_Q(StrToRat(values['dig1']))))
         if event == sg.WINDOW_CLOSED:
             break
 

@@ -1,21 +1,3 @@
-def POZ_Z_D(mas):  # на вход функция получает целое число
-    # Семёнов Михаил
-    # Знак целого числа
-    if mas[0] == '-':  # первый символ числа "-"
-        return mas[0]
-    else:
-        return ''
-
-
-def ABS_Z_N(x):
-    # Семёнов Михаил
-    # Модуль целого числа
-    if POZ_Z_D(x) == '-':
-        return x[1:]
-    else:
-        return x
-
-
 def COM_NN_D(x, y):
     # Аносов Павел
     # Сравнение двух чисел
@@ -180,7 +162,7 @@ def DIV_NN_Dk(N1, N2):
 def NZER_N_B(x):
     # Артамонов Артур, гр.0306
     # Проверка на 0. Если число = 0, то да, иначе нет
-    if x[0] == 0 and len(x) == 1:
+    if x[0] == 0:
         return True
     return False
 
@@ -228,7 +210,7 @@ def MUL_NN_N(nat1, nat2):
     # Умножение натуральных чисел
     nat2 = nat2[::-1]  # разворот списка
     sum = []
-    if not NZER_N_B(nat1) and not NZER_N_B(nat2):
+    if not NZER_N_B(nat1) and not NZER_N_B(nat2[::-1]):
         for i in range(len(nat2)):  # проход по цифрам второго числа
             if nat2[i] != 0:  # если не 0
                 rez = MUL_ND_N(nat1, int(nat2[i]))  # умножаем число на цифру

@@ -3,10 +3,7 @@ import integer as integer
 
 
 def INT_Q_B(Q):
-    if nat.MOD_NN_N(integer.ABS_Z_N(Q[0]), Q[1]) == [0]:
-        return True
-    else:
-        return False
+    return nat.NZER_N_B(nat.MOD_NN_N(integer.ABS_Z_N(Q[0]), Q[1]))
     # Гурьянов Савелий Функция возвращает отрицание результата остатка от деления числителя, преобразованного к
     # натуральному числу, на натуральный знаменатель, если остаток равен нулю, то дробь преобразуется к натуральному
     # числу, иначе не преобразуется и вернётся 0
@@ -15,23 +12,27 @@ def INT_Q_B(Q):
 def RED_Q_Q(Q):
     # Гурьянов Савелий
     # Сокращение дроби
-    result = [[0], [0]]
-    nod = nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), nat.ABS_Z_N(Q[1]))
-    result[0] = integer.DIV_ZZ_Z(Q[0], nod)
-    result[1] = integer.DIV_ZZ_Z(Q[1], nod)
-    if integer.POZ_Z_D(result[0]) == '-' and integer.POZ_Z_D(result[1]) == '-':
-        result[0] = result[0][1:]
-        result[1] = result[1][1:]
-    return result
+    if integer.POZ_Z_D(Q[0]):
+        if INT_Q_B(Q):
+            nod = nat.GCF_NN_N(nat.ABS_Z_N(Q[0]), nat.ABS_Z_N(Q[1]))
+            Q[0] = integer.DIV_ZZ_Z(Q[0], nod)
+            Q[1] = integer.DIV_ZZ_Z(Q[1], nod)
+        return TRANS_Q_Z(Q)
+    return [0]
 
 
 def ADD_QQ_Q(list1, list2):
     # Пекло Елизавета
     # Сложение дробей
-    numerator = integer.ADD_ZZ_Z(list1[0], list2[0])
-    denominator = nat.LCM_NN_N(list1[1], list2[1])
-    # Возвращаем новые числитель и знаменатель
-    return TRANS_Q_Z(RED_Q_Q([numerator, denominator]))
+    mul = nat.LCM_NN_N(list1[1], list2[1])          # НОД знаменателей
+    mul1 = nat.DIV_NN_N(mul, list1[1])              # Сопряженное к первому знаменателю
+    mul2 = nat.DIV_NN_N(mul, list2[1])              # Сопряженное ко второму знаменателю
+    firstNum = integer.MUL_ZZ_Z(list1[0], mul1)     # Первое слагаемое нового числителя
+    secNum = integer.MUL_ZZ_Z(list2[0], mul2)       # Второе
+    numerator = integer.ADD_ZZ_Z(firstNum, secNum)  # Числитель, как сумма этих слагаемых
+    denominator = mul                               # НОД знаменателей - новый знаменатель
+
+    return RED_Q_Q([numerator, denominator])        # Сокращаем полученную дробь
 
 
 def DIV_QQ_Q(rational1, rational2):
@@ -40,34 +41,25 @@ def DIV_QQ_Q(rational1, rational2):
     result = [[0], [0]]
     result[0] = integer.MUL_ZZ_Z(rational1[0], rational2[1])  # умножение числителя на знаменатель
     result[1] = integer.MUL_ZZ_Z(rational2[1], rational2[0])  # умножение знаменателя на числитель
-    if POZ_Z_D(result[0]) == '' and POZ_Z_D(result[1]) == '-':
-        result[0] = MUL_ZM_Z(result[0])
-        result[1] = MUL_ZM_Z(result[1])
-    res = RED_Q_Q(result)  # сокращение дроби
-    return res
+    if integer.POZ_Z_D(result[0]) == '' and integer.POZ_Z_D(result[1]) == '-':
+        result[0] = integer.MUL_ZM_Z(result[0])
+        result[1] = integer.MUL_ZM_Z(result[1])
+    return RED_Q_Q(result)  # сокращение дроби
 
 
 def MUL_QQ_Q(rational1, rational2):  # на вход функция получает 2 рациональных числа
     # Семёнов Михаил
     # Умножение дробей
     result = [[0], [0]]  # результат умножения
-    result[0] = integer.MUL_ZZ_Z(rational1[0], rational2[0]) # умножение числителей
-    result[1] = integer.MUL_ZZ_Z(rational1[1], rational2[1]) # умножение знаменателей
-    rez = RED_Q_Q(result)  # сокращение дроби
-
-
-def TRANS_Z_Q(x):
-    # Артамонов Артур, гр.0306
-    # Преобразование целого в дробное
-    x.append('/')
-    x.append(1)
-    return x
+    result[0] = integer.MUL_ZZ_Z(rational1[0], rational2[0])  # умножение числителей
+    result[1] = integer.MUL_ZZ_Z(rational1[1], rational2[1])  # умножение знаменателей
+    return RED_Q_Q(result)  # сокращение дроби
 
 
 def TRANS_Q_Z(x):
     # Артамонов Артур, гр.0306
     # Преобразование дробного в целое, если знам. = 1
-    if x[1][0] == 1:
+    if x[1][-1] == 1:
         return x[0]
     else:
         return x
@@ -93,7 +85,7 @@ def SUB_QQ_Q(list1, list2):
 def INT_Q_B(A):
     # Аносов Павел
     # Проверка на целое
-    if nat.MOD_NN_N(A[0], A[1]) == [0]:
+    if nat.MOD_NN_N(integer.ABS_Z_N(A[0]), A[1]) == [0]:
         return True
     else:
         return False

@@ -113,3 +113,10 @@ def ADD_PP_P(x, y):
         i = i + 1
     return res
 
+def MUL_Pxk_P(polynome1, polynome2,k):
+    #Дашкин Дамир
+    #Умножение многочлена на x^k
+    for i in range(len(polynome2)):
+        polynome2[i] +=k
+    return polynome1, polynome2
+

@@ -1,3 +1,5 @@
+import natural as nat
+
 def MUL_PQ_P(P, Q):
     for index in range(0, P[0]):
         P[1][index] = MUL_PQ_P(P[1][index], Q)
@@ -112,4 +114,11 @@ def ADD_PP_P(x, y):
         res = res + ADD_QQ_Q((prdx[i]+"/1"), (prdy[i]+"/1")) + " "  # Получаем итоговый результат сложения
         i = i + 1
     return res
+
+def MUL_Pxk_P(polynome2,k):
+    #Дашкин Дамир
+    #Умножение многочлена на x^k
+    for i in range(len(polynome2)):
+        polynome2[i] = nat.ADD_NN_N(polynome2[i], k)
+    return polynome2
 

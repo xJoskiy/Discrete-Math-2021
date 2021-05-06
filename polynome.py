@@ -20,38 +20,15 @@ def GCF_PP_P(P1, P2):
 # в больший многочлен переписывается меньший, а в меньший - остаток от деления большего на меньший
 
 
-def LED_P_Q(str):
-    # Пекло Елизавета
-    # Нахождение старшего коэффициента многочлена
-    list1 = ''
-    i = 0
-    while list0[i] != ' ':
-        list1 = list1 + list0[i]
-        i += 1
-    return list1
+def LED_P_Q(listCff):
+# Пекло Елизавета
+#Нахождение старшего коэффициента многочлена
+    return listCff[0]
 
-def DEG_P_N(list):
+def DEG_P_N(listSt):
 # Пекло Елизавета
 # Получение степени многочлена
-# Степень многочлена равна количеству пробелов в списке
-    cnt = 0
-    for x in list:
-        if x == ' ':
-            cnt = cnt + 1
-    return cnt
-
-
-def DEG_P_N(str):
-# Пекло Елизавета
-# Получение степени многочлена
-# Степень многочлена равна количеству пробелов в списке
-    str0 = Changing_str(str)
-    cnt = 0
-    i = 0
-    for i in range(len(str0)):
-        if str0[i] == ' ':
-            cnt = cnt + 1
-    return cnt
+    return listSt[0]
 
   
 def SUB_PP_P(stroka1,stroka2):

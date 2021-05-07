@@ -1,6 +1,77 @@
 import natural as nat
 import integer as integer
 
+def strtomas(str):
+    i = 0
+    tmp = 0
+
+    while(i < len(str)):
+        if str[i] == 'x':
+            if i == len(str)-1:
+                str = str + '^1'
+            elif str[i+1] == '+' or str[i+1] == '-':
+                str = str[:i+1] + '^1'+str[i+1:]
+            if i == 0:
+                str = '1' + str
+            elif str[i-1] == '+' or str[i-1] == '-':
+                str = str[:i] + '1' + str[i:]
+        if ord(str[len(str)-1]) > 47 and ord(str[len(str)-1]) < 58:
+            t = len(str)-1
+            while(str[t] != '^' and str[t] != '-' and str[t] != '+' and t != 0 and tmp == 0):
+                t -= 1
+            if str[t] == '-' or str[t] == '+' or t == 0:
+                str = str+'x^0'
+                tmp = 1
+        i += 1
+    mas = list(str)
+    print(mas)
+    mas_result = []
+    mas_stepen = []
+    for i in range(len(mas)):
+        if mas[i] != '-' and mas[i] != '+' and mas[i] != '^' and mas[i] != 'x' and mas[i] != '/':
+            mas[i] = ord(mas[i])-48
+    i = 0
+    t = 0
+    p = 0
+    k = 0
+    j = 0
+    flag = 0
+    while(i<len(mas)):
+        if mas[i] == '-':
+           p = 1
+        if mas[i] == '/':
+            flag = 1
+            k = i
+        if mas[i] == 'x':
+            j = t
+            if flag == 0:
+                if p == 1 and j != 0:
+                    j = t - 1
+                    p = 0
+                mas_result.append([mas[j:i], [1]])
+            else:
+                if p == 1 and j != 0:
+                    j = t - 1
+                    p = 0
+                mas_result.append([mas[j:k], mas[k+1:i]])
+                flag = 0
+            j = i+1
+        if mas[i] == '^':
+            t = i
+            while((mas[t] != '-' and mas[t] != '+') and t != len(mas)-1):
+                t += 1
+            if t != len(mas)-1:
+                mas_stepen.append(mas[i+1:t])
+            else:
+                mas_stepen.append(mas[i+1:])
+            t = t+1
+            i = t - 2
+        i += 1
+    return mas_result, mas_stepen
+str = input()
+a, b = strtomas(str)
+print(a)
+print(b)
 
 def INT_Q_B(Q):
     return not nat.NZER_N_B(nat.MOD_NN_N(integer.ABS_Z_N(Q[0]), Q[1]))

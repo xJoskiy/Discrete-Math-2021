@@ -84,6 +84,20 @@ def SUB_QQ_Q(list1, list2):
     res[1] = znam
     return res
 
+def SUB_QQ_Q(list1, list2):
+    # Дашкин Дамир
+    # Вычитание дробей
+
+    chisl1 = integer.MUL_ZZ_Z(list2[1], list1[0])
+    chisl2 = integer.MUL_ZZ_Z(list1[1], list2[0])
+    result = integer.SUB_ZZ_Z(chisl1, chisl2)
+    znam = integer.MUL_ZZ_Z(list1[1], list2[1])
+    tmp = 2*[0]
+    tmp[0] = result
+    tmp[1] = znam
+    tmp = RED_Q_Q(tmp)
+    return tmp
+
 
 def INT_Q_B(A):
     # Аносов Павел

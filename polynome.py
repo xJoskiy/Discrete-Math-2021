@@ -1,8 +1,10 @@
 import natural as nat
+import rational as rat
+
 
 def MUL_PQ_P(P, Q):
-    for index in range(0, P[0]):
-        P[1][index] = MUL_PQ_P(P[1][index], Q)
+    for index in range(0, len(P[0])):
+        P[1][index] = MUL_PQ_P(P[1][index], Q[0])
     return P
 # Гурьянов Савелий
 # Каждый коэффициент многочлена циклично умножается на переданное рациональное число
@@ -20,18 +22,19 @@ def GCF_PP_P(P1, P2):
 # в больший многочлен переписывается меньший, а в меньший - остаток от деления большего на меньший
 
 
-def LED_P_Q(listCff):
-# Пекло Елизавета
-#Нахождение старшего коэффициента многочлена
+def LED_P_Q(listCff, power):
+    # Пекло Елизавета
+    # Нахождение старшего коэффициента многочлена
     return listCff[0]
 
-def DEG_P_N(listSt):
-# Пекло Елизавета
-# Получение степени многочлена
-    return listSt[0]
+
+def DEG_P_N(listSt, power):
+    # Пекло Елизавета
+    # Получение степени многочлена
+    return power[0]
 
   
-def SUB_PP_P(stroka1,stroka2):
+def SUB_PP_P(stroka1, stroka2):
     #Семёнов Михаил
     #Вычитание многочленов
     i = 0
@@ -58,11 +61,12 @@ def SUB_PP_P(stroka1,stroka2):
             j = j + 1
             count2 = j
         if (i != len(stroka1)) or (j != len(stroka2)): #если не дошли до конца
-            rez = rez + SUBB_QQ_Q(mnog1,mnog2) + [' '] #прибавляем к списку разность коэффицентов полиномов
+            rez = rez + SUB_QQ_Q(mnog1,mnog2) + [' '] #прибавляем к списку разность коэффицентов полиномов
         else :
-            rez = rez + SUBB_QQ_Q(mnog1,mnog2) #тоже самое ,только без пробела после последнего элемента
+            rez = rez + SUB_QQ_Q(mnog1,mnog2) #тоже самое ,только без пробела после последнего элемента
 
     result="".join(map(str,rez)) #склеивеаем в строку
+
 
 def ADD_PP_P(x, y):
     # Кривоконь Максим
@@ -92,10 +96,59 @@ def ADD_PP_P(x, y):
         i = i + 1
     return res
 
-def MUL_Pxk_P(polynome2,k):
-    #Дашкин Дамир
-    #Умножение многочлена на x^k
-    for i in range(len(polynome2)):
-        polynome2[i] = nat.ADD_NN_N(polynome2[i], k)
-    return polynome2
 
+def MUL_Pxk_P(power, k):
+    # Дашкин Дамир
+    # Умножение многочлена на x^k
+    for i in range(len(power)):
+        power[i] = nat.ADD_NN_N(power[i], k)
+    return power
+
+
+def MUL_PP_P(koefs_1, powers_1, koefs_2, powers_2):
+    # Артамонов Артур, гр.0306
+    # Умножение многочленов
+
+    new_koefs = []
+    new_powers = []
+
+    for i in range(len(koefs_1)):
+        for j in range(len(koefs_2)):
+            k = rat.MUL_QQ_Q(koefs_1[i], koefs_2[j])
+
+            n = nat.ADD_NN_N(powers_1[i], powers_2[j])
+
+            new_koefs.append(k)
+            new_powers.append(n)
+
+    super_new_powers = []
+    super_new_koefs = []
+
+    deleted = set()
+    t = [[0], [1]]
+    for i in range(len(new_powers)):
+        x = new_powers[i]
+        if new_powers.count(x) > 1:
+            q = i
+            for j in range(q + 1, len(new_powers)):
+                if new_powers[j] == x:
+                    k = rat.ADD_QQ_Q(new_koefs[q], new_koefs[j])
+                    t = rat.ADD_QQ_Q(t, k)
+
+            if new_powers[i][0] not in deleted:
+                super_new_koefs.append(t)
+                super_new_powers.append(new_powers[i])
+                deleted.add(new_powers[i][0])
+
+        else:
+            super_new_koefs.append(new_koefs[i])
+            super_new_powers.append(new_powers[i])
+
+    n = len(super_new_powers)
+    for j in range(n - 1):
+        for i in range(n - j - 1):
+            if super_new_powers[i][0] < super_new_powers[i + 1][0]:
+                super_new_powers[i], super_new_powers[i + 1] = super_new_powers[i + 1], super_new_powers[i]
+                super_new_koefs[i], super_new_koefs[i + 1] = super_new_koefs[i + 1], super_new_koefs[i]
+
+    return super_new_koefs, super_new_powers

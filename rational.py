@@ -15,7 +15,7 @@ def RED_Q_Q(Q):
         nod = nat.GCF_NN_N(integer.ABS_Z_N(Q[0]), integer.ABS_Z_N(Q[1]))
         Q[0] = integer.DIV_ZZ_Z(Q[0], nod)
         Q[1] = integer.DIV_ZZ_Z(Q[1], nod)
-        return TRANS_Q_Z(Q)
+        return Q
     else:
         return [0]
 
@@ -71,18 +71,8 @@ def TRANS_Q_Z(x):
 def SUB_QQ_Q(list1, list2):
     # Дашкин Дамир
     # Вычитание дробей
-    k1 = list1[0]
-    k2 = list2[0]
-    znam = nat.LCM_NN_N(k1, k2)
-    add1 = nat.DIV_NN_N(znam, k1)
-    add2 = nat.DIV_NN_N(znam, k2)
-    chisl1 = integer.MUL_ZZ_Z(add1, list1[1])
-    chisl2 = integer.MUL_ZZ_Z(add2, list2[1])
-    result = integer.SUB_ZZ_Z(chisl1, chisl2)
-    res = [0]*2
-    res[0] = result
-    res[1] = znam
-    return res
+    list2[0] = integer.MUL_ZM_Z(list2[0])
+    return ADD_QQ_Q(list1, list2)
 
 
 def INT_Q_B(A):

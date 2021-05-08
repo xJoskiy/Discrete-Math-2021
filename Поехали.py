@@ -5,6 +5,66 @@ import rational as rat
 import polynome as pol
 
 
+def StrToPol(seq):
+    i = tmp = 0
+    while i < len(seq):
+        if seq[i] == 'x':
+            if i == len(seq) - 1:
+                seq = seq + '^1'
+            elif seq[i + 1] == '+' or seq[i + 1] == '-':
+                seq = seq[:i + 1] + '^1' + seq[i + 1:]
+            if i == 0:
+                seq = '1' + seq
+            elif seq[i - 1] == '+' or seq[i - 1] == '-':
+                seq = seq[:i] + '1' + seq[i:]
+        if 47 < ord(seq[len(seq) - 1]) < 58:
+            t = len(seq) - 1
+            while seq[t] != '^' and seq[t] != '-' and seq[t] != '+' and t != 0 and tmp == 0:
+                t -= 1
+            if seq[t] == '-' or seq[t] == '+' or t == 0:
+                seq = seq + 'x^0'
+                tmp = 1
+        i += 1
+    mas = list(seq)
+    coefficient = []
+    power = []
+    for i in range(len(mas)):
+        if mas[i] != '-' and mas[i] != '+' and mas[i] != '^' and mas[i] != 'x' and mas[i] != '/':
+            mas[i] = ord(mas[i]) - 48
+    i = t = p = k = flag = 0
+    while i < len(mas):
+        if mas[i] == '-':
+            p = 1
+        if mas[i] == '/':
+            flag = 1
+            k = i
+        if mas[i] == 'x':
+            j = t
+            if flag == 0:
+                if p == 1 and j != 0:
+                    j = t - 1
+                    p = 0
+                coefficient.append([mas[j:i], [1]])
+            else:
+                if p == 1 and j != 0:
+                    j = t - 1
+                    p = 0
+                coefficient.append([mas[j:k], mas[k + 1:i]])
+                flag = 0
+        if mas[i] == '^':
+            t = i
+            while (mas[t] != '-' and mas[t] != '+') and t != len(mas) - 1:
+                t += 1
+            if t != len(mas) - 1:
+                power.append(mas[i + 1:t])
+            else:
+                power.append(mas[i + 1:])
+            t = t + 1
+            i = t - 2
+        i += 1
+    return coefficient, power
+
+
 def StrToRat(seq):
     seq = StrToList(seq)
     Rat = [seq[:seq.index('/')], seq[seq.index('/') + 1:]]
@@ -264,7 +324,7 @@ def open_window_rat_sum():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(RatToStr(rat.ADD_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
+            window['out'].update(RatToStr(rat.TRANS_Q_Z(rat.ADD_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2'])))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -281,7 +341,7 @@ def open_window_rat_sub():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(RatToStr(rat.SUB_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
+            window['out'].update(RatToStr(rat.TRANS_Q_Z(rat.SUB_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2'])))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -298,7 +358,7 @@ def open_window_rat_prod():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(RatToStr(rat.MUL_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
+            window['out'].update(RatToStr(rat.RED_Q_Q(rat.MUL_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2'])))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -315,7 +375,7 @@ def open_window_rat_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(RatToStr(rat.DIV_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2']))))
+            window['out'].update(RatToStr(rat.RED_Q_Q(rat.DIV_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2'])))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -338,7 +398,7 @@ def open_window_rat_red():
 
 def open_window_pol_sum():
     layout = [
-        [sg.Text('Enter coefficients of two polynomials')],
+        [sg.Text('Enter the polynomial')],
         [sg.Input(key='dig1')],
         [sg.Button('+', key='start')],
         [sg.Input(key='dig2')],
@@ -346,7 +406,7 @@ def open_window_pol_sum():
     ]
     window = sg.Window('The sum of polynomials', layout, size=(460, 260), resizable=True)
     while True:
-        event, values = window.read()
+        event, values = window.read(pol.ADD_PP_P(StrToPol(values['dig1']), StrToPol(values['dig2'])))
         if event == "start":
             window['out'].update()
         if event == sg.WINDOW_CLOSED:
@@ -382,7 +442,9 @@ def open_window_pol_prod():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+            k1, p1 = StrToPol(values['dig1'])
+            k2, p2 = StrToPol(values['dig2'])
+            window['out'].update(ListToStr(pol.MUL_PP_P(k1, p1, k2, p2)))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -399,7 +461,7 @@ def open_window_pol_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+            window['out'].update()
         if event == sg.WINDOW_CLOSED:
             break
 

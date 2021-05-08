@@ -39,7 +39,7 @@ def DEG_P_N(listSt):
     # Получение степени многочлена
     return listSt[0]
 
-
+  
 def SUB_PP_P(stroka1, stroka2):
     # Семёнов Михаил
     # Вычитание многочленов
@@ -103,9 +103,18 @@ def ADD_PP_P(x, y):
     return res
 
 
-def MUL_Pxk_P(polynome2, k):
-    # Дашкин Дамир
-    # Умножение многочлена на x^k
+def SUB_PP_P(list1,list2,stepen1,stepen2)
+    for i in range(len(list2)):
+        if list2[i][0][0] == '-':
+            list2[i][0] = list2[i][0][1:]
+        else:
+            list2[i][0] = ['-'] + list2[i][0]
+    return(ADD_PP_P(list1,list2,stepen1,stepen2))
+
+  
+def MUL_Pxk_P(polynome2,k):
+    #Дашкин Дамир
+    #Умножение многочлена на x^k
     for i in range(len(polynome2)):
         polynome2[i] = nat.ADD_NN_N(polynome2[i], k)
     return polynome2

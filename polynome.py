@@ -1,6 +1,60 @@
 import natural as nat
 import rational as rat
 
+def mastostr( list_result, list_stepen ):
+    str = ''
+    for i in range(len(list_result)):
+        for j in range(len(list_result[i])):
+            for k in range(len(list_result[i][j])):
+                if list_result[i][j][k] != '-':
+                    list_result[i][j][k] = chr(list_result[i][j][k] + 48)
+                str = str + list_result[i][j][k]
+            if j == 0:
+                str = str + '/'
+        str = str + 'x'
+    i = 0
+    while ( i < len(str) ):
+        if i < len(str)-2:
+            if str[i] == '/' and str[i+1] == '1' and str[i+2] == 'x':
+                str = str[:i] + str[i+2:]
+        if i < len(str)-1:
+            if str[i] == 'x' and ord(str[i+1]) > 47 and ord(str[i+1]) < 58:
+                str = str[:i+1] + '+' + str[i+1:]
+        i += 1
+    i = 0
+    tmp = 0
+    flag = -1
+    j = 0
+    while ( i < len(str) ):
+        if str[i] == 'x' :
+            flag += 1
+        if flag == tmp and str[i] == 'x':
+            stroka = ''
+            for t in range(len((list_stepen[tmp]))):
+                list_stepen[tmp][t] = chr(list_stepen[tmp][t]+48)
+                stroka = stroka + list_stepen[tmp][t]
+            if stroka != '1' and stroka != '0':
+                str = str[:i + 1] + '^' + stroka + str[i+1:]
+            elif stroka == '0':
+                str = str[:len(str)-1]
+            tmp += 1
+        i += 1
+    i = 0
+    while ( i < len(str) - 1 ):
+        if str[i] == '1':
+            if i == 0 and str[i+1] == 'x':
+                str = str[i+1:]
+            elif str[i+1] == 'x' and (str[i-1] == '-' or str[i-1] == '+') and i < len(str) - 2:
+                str = str[:i] + str[i+1:]
+        i += 1
+    return str
+
+list_result = [[[4],[1]],[[5],[3]],[['-',8],[1]],[['-',9,9,9,9,9,7,6,5,4,3],[2]]]
+list_stepen = [[5,6],[3,4],[1],[0]]
+str = mastostr(list_result,list_stepen)
+print(str)
+
+
 
 def MUL_PQ_P(P, Q):
     # Гурьянов Савелий

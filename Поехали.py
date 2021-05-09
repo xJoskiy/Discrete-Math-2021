@@ -5,6 +5,53 @@ import rational as rat
 import polynome as pol
 
 
+def PolToStr(list_result, list_stepen):
+    seq = ''
+    for i in range(len(list_result)):
+        for j in range(len(list_result[i])):
+            for k in range(len(list_result[i][j])):
+                if list_result[i][j][k] != '-':
+                    list_result[i][j][k] = chr(list_result[i][j][k] + 48)
+                seq = seq + list_result[i][j][k]
+            if j == 0:
+                seq = seq + '/'
+        seq = seq + 'x'
+    i = 0
+    while i < len(seq):
+        if i < len(seq) - 2:
+            if seq[i] == '/' and seq[i + 1] == '1' and seq[i + 2] == 'x':
+                seq = seq[:i] + seq[i + 2:]
+        if i < len(seq) - 1:
+            if seq[i] == 'x' and 47 < ord(seq[i + 1]) < 58:
+                seq = seq[:i + 1] + '+' + seq[i + 1:]
+        i += 1
+    i = tmp = 0
+    flag = -1
+    while i < len(seq):
+        if seq[i] == 'x':
+            flag += 1
+        if flag == tmp and seq[i] == 'x':
+            stroka = ''
+            for t in range(len((list_stepen[tmp]))):
+                list_stepen[tmp][t] = chr(list_stepen[tmp][t] + 48)
+                stroka = stroka + list_stepen[tmp][t]
+            if stroka != '1' and stroka != '0':
+                seq = seq[:i + 1] + '^' + stroka + seq[i + 1:]
+            elif stroka == '0':
+                seq = seq[:len(seq) - 1]
+            tmp += 1
+        i += 1
+    i = 0
+    while i < len(seq) - 1:
+        if seq[i] == '1':
+            if i == 0 and seq[i + 1] == 'x':
+                seq = seq[i + 1:]
+            elif seq[i + 1] == 'x' and (seq[i - 1] == '-' or seq[i - 1] == '+') and i < len(seq) - 2:
+                seq = seq[:i] + seq[i + 1:]
+        i += 1
+    return seq
+
+
 def StrToPol(seq):
     i = tmp = 0
     while i < len(seq):
@@ -358,7 +405,7 @@ def open_window_rat_prod():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(RatToStr(rat.RED_Q_Q(rat.MUL_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2'])))))
+            window['out'].update(RatToStr(rat.TRANS_Q_Z(rat.MUL_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2'])))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -375,7 +422,7 @@ def open_window_rat_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(RatToStr(rat.RED_Q_Q(rat.DIV_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2'])))))
+            window['out'].update(RatToStr(rat.TRANS_Q_Z(rat.DIV_QQ_Q(StrToRat(values['dig1']), StrToRat(values['dig2'])))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -391,7 +438,7 @@ def open_window_rat_red():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(RatToStr(rat.RED_Q_Q(StrToRat(values['dig1']))))
+            window['out'].update(RatToStr(rat.TRANS_Q_Z(StrToRat(values['dig1']))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -444,7 +491,8 @@ def open_window_pol_prod():
         if event == "start":
             k1, p1 = StrToPol(values['dig1'])
             k2, p2 = StrToPol(values['dig2'])
-            window['out'].update(ListToStr(pol.MUL_PP_P(k1, p1, k2, p2)))
+            coefficient, power = pol.MUL_PP_P(k1, p1, k2, p2)
+            window['out'].update(PolToStr(coefficient, power))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -461,7 +509,28 @@ def open_window_pol_quot():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update()
+            k1, p1 = StrToPol(values['dig1'])
+            k2, p2 = StrToPol(values['dig2'])
+            coefficient, power = pol.D(k1, p1, k2, p2)
+            window['out'].update(PolToStr(coefficient, power))
+        if event == sg.WINDOW_CLOSED:
+            break
+
+
+def open_window_pol_derivative():
+    layout = [
+        [sg.Text('Enter coefficients of two polynomials')],
+        [sg.Input(key='dig1')],
+        [sg.Button('Differentiate', key='start')],
+        [sg.Text(size=(400, 10), key='out')]
+    ]
+    window = sg.Window('Derivative of polynomial', layout, size=(460, 260), resizable=True)
+    while True:
+        event, values = window.read()
+        if event == "start":
+            k1, p1 = StrToPol(values['dig1'])
+            coefficient, power = pol.DER_P_P(k1, p1)
+            window['out'].update(PolToStr(coefficient, power))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -520,12 +589,14 @@ def Operation_with_Polynomials(event):
         open_window_pol_prod()
     if event == "Quotient_Pol":
         open_window_pol_quot()
+    if event == "Derivative":
+        open_window_pol_derivative()
 
 
 menu = [['&Naturals', ['Sum_Nat', 'Sub_Nat', 'Product_Nat', 'Quotient_Nat', 'Mod_Nat', 'LCM_Nat', 'GCD_Nat']],
         ['&Integers', ['Module', 'Sum_Int', 'Sub_Int', 'Product_Int', 'Quotient_Int', 'Mod_Int']],
         ['&Rationals', ['Sum_Rat', 'Sub_Rat', 'Product_Rat', 'Quotient_Rat', 'Fraction reduction']],
-        ['&Polynomials', ['Sum_Pol', 'Sub_Pol', 'Product_Pol', 'Quotient_Pol']]
+        ['&Polynomials', ['Sum_Pol', 'Sub_Pol', 'Product_Pol', 'Quotient_Pol', 'Derivative']]
         ]
 sg.theme('LightGray2')
 

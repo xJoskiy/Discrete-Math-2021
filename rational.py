@@ -2,12 +2,6 @@ import natural as nat
 import integer as integer
 
 
-def INT_Q_B(Q):
-    return not nat.NZER_N_B(nat.MOD_NN_N(integer.ABS_Z_N(Q[0]), Q[1]))
-    # Гурьянов Савелий
-    # Проверка на целое
-
-
 def RED_Q_Q(Q):
     # Гурьянов Савелий
     # Сокращение дроби
@@ -17,13 +11,13 @@ def RED_Q_Q(Q):
         Q[1] = integer.DIV_ZZ_Z(Q[1], nod)
         return Q
     else:
-        return [0]
+        return Q
 
 
 def ADD_QQ_Q(list1, list2):
     # Пекло Елизавета
     # Сложение дробей
-    mul = nat.LCM_NN_N(list1[1], list2[1])          # НОД знаменателей
+    mul = nat.LCM_NN_N(list1[1], list2[1])          # НОК знаменателей
     mul1 = nat.DIV_NN_N(mul, list1[1])              # Сопряженное к первому знаменателю
     mul2 = nat.DIV_NN_N(mul, list2[1])              # Сопряженное ко второму знаменателю
     firstNum = integer.MUL_ZZ_Z(list1[0], mul1)     # Первое слагаемое нового числителя
@@ -84,7 +78,9 @@ def INT_Q_B(A):
         return False
 
 
-
+def TRANS_Z_Q(x):
+    # Аносов Павел
+    return [x, [1]]
 
 
 

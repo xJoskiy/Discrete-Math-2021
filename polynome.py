@@ -1,13 +1,14 @@
 import natural as nat
 import rational as rat
+import integer
 
 
-def MUL_PQ_P(P, Q):
+def MUL_PQ_P(coefficient, Q):
     # Гурьянов Савелий
     # Каждый коэффициент многочлена циклично умножается на переданное рациональное число
-    for index in range(len(P[0])):
-        P[0][index] = rat.MUL_QQ_Q(P[0][index], Q)
-    return P
+    for index in range(len(coefficient)):
+        coefficient[index] = rat.MUL_QQ_Q(coefficient[index], Q)
+    return coefficient
 
 
 def GCF_PP_P(P1, P2):
@@ -28,10 +29,11 @@ def NMR_P_P(P):
     P = DIV_PP_P(P, GCF_PP_P(P, DER_P_P(P)))
     return P
 
-def LED_P_Q(listCff):
+
+def LED_P_Q(coefficient):
     # Пекло Елизавета
     # Нахождение старшего коэффициента многочлена
-    return listCff[0]
+    return coefficient[0]
 
 
 def DEG_P_N(power):
@@ -98,11 +100,31 @@ def MUL_PP_P(koefs_1, powers_1, koefs_2, powers_2):
 
 
 def SUB_PP_P(list1, stepen1, list2, stepen2):
-    for i in range(len(list2)):
-        if list2[i][0][0] == '-':
-            list2[i][0] = list2[i][0][1:]
-        else:
-            list2[i][0] = ['-'] + list2[i][0]
+    for i in range(stepen1):
+        list1[i][0] = integer.MUL_ZM_Z(list1[i][0])
     return ADD_PP_P(list1, stepen1, list2, stepen2)
 
+
+def DER_P_P(coefficient, power):
+    # Производная многочлена
+    # Аносов Павел
+    for i in range(len(power)):
+        coefficient[i] = rat.MUL_QQ_Q(coefficient[i], rat.TRANS_Z_Q(power[i]))
+        power[i] = nat.SUB_NN_N(power[i], [1])
+    return coefficient, power
+
+
+def DIV_PP_P(coefficient1, power1, coefficient2, power2):
+    new_power = []
+    new_coefficient = []
+    while nat.DIV_NN_N(power1, power2) >= 0:
+        new_power.append(nat.DIV_NN_N(power1, power2))
+        new_coefficient.append(rat.DIV_QQ_Q(coefficient1, coefficient2))
+        coefficient1, power1 = SUB_PP_P(coefficient1, power1, new_power, new_coefficient)
+    return new_coefficient, new_power
+
+# [1, 2, 3, 5]  1235
+# ['-', 1, 2, 4]  -124
+# [['-', 2, 3], [6, 4]]
+# [[['-', 1, 2], [4, 5]], [1, 2], [1]]] [[2], [0]]
 

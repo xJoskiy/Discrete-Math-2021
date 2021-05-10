@@ -1,5 +1,10 @@
 import natural as nat
 
+# How numbers are represented:
+# ['-', 1, 2, 3, 5]  -1235
+# [1, 2, 3, 4] 1234
+# [0] 0
+
 
 def POZ_Z_D(mas):  # на вход функция получает целое число
     # Семёнов Михаил
@@ -24,11 +29,7 @@ def ABS_Z_N(x):
 def SUB_ZZ_Z(list1, list2):
     # Семёнов Михаил
     # Вычитание целых чисел
-    if POZ_Z_D(list2) == '-':
-        list2 = ABS_Z_N(list2)
-    elif list2 != [0]:
-        list2 = ['-'] + list2
-    return ADD_ZZ_Z(list1, list2)
+    return ADD_ZZ_Z(list1, MUL_ZM_Z(list2))  # Домножаем второе число на -1 и складываем
   
 
 def ADD_ZZ_Z(list1, list2):

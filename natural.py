@@ -1,3 +1,7 @@
+# How numbers are represented:
+# [1, 2, 3, 5]  1235
+# [0] 0
+
 def COM_NN_D(x, y):
     # Аносов Павел
     # Сравнение двух чисел

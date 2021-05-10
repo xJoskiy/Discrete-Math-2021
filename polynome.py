@@ -2,6 +2,11 @@ import natural as nat
 import rational as rat
 import integer
 
+# Polynomials are represented by two lists: coefficients and powers
+# Each coefficient is a rational number
+# Each power is a natural number
+# [ [ ['-', 1, 2], [4, 5] ], [ [1, 2], [1] ], [ ['-', 6], [1] ] ] : [ [1, 1], [4], [0] ]   -12/45x^12x^4-6
+
 
 def MUL_PQ_P(coefficient, Q):
     # Гурьянов Савелий
@@ -46,7 +51,7 @@ def MUL_Pxk_P(power, k):
     # Дашкин Дамир
     # Умножение многочлена на x^k
     for i in range(len(power)):
-        power[i] = nat.ADD_NN_N(power[i], k)
+        power[i] = nat.ADD_NN_N(power[i], k)   # Степень каждого члена увеличиваем на k единиц
     return power
 
 
@@ -59,9 +64,8 @@ def MUL_PP_P(koefs_1, powers_1, koefs_2, powers_2):
 
     for i in range(len(koefs_1)):
         for j in range(len(koefs_2)):
-            k = rat.MUL_QQ_Q(koefs_1[i], koefs_2[j])
-
-            n = nat.ADD_NN_N(powers_1[i], powers_2[j])
+            k = rat.MUL_QQ_Q(koefs_1[i], koefs_2[j])            # Умножаем фонтанчиком
+            n = nat.ADD_NN_N(powers_1[i], powers_2[j])          # коэффициенты и степени
 
             new_koefs.append(k)
             new_powers.append(n)
@@ -71,6 +75,7 @@ def MUL_PP_P(koefs_1, powers_1, koefs_2, powers_2):
 
     deleted = set()
     t = [[0], [1]]
+    # Складываем многочлены с одинаковыми степенями
     for i in range(len(new_powers)):
         x = new_powers[i]
         if new_powers.count(x) > 1:
@@ -90,6 +95,7 @@ def MUL_PP_P(koefs_1, powers_1, koefs_2, powers_2):
             super_new_powers.append(new_powers[i])
 
     n = len(super_new_powers)
+    # Сортировка пузырьком
     for j in range(n - 1):
         for i in range(n - j - 1):
             if super_new_powers[i][0] < super_new_powers[i + 1][0]:
@@ -100,8 +106,10 @@ def MUL_PP_P(koefs_1, powers_1, koefs_2, powers_2):
 
 
 def SUB_PP_P(list1, stepen1, list2, stepen2):
+    # Вычитание многочленов
+    # Семёнов Михаил
     for i in range(stepen1):
-        list1[i][0] = integer.MUL_ZM_Z(list1[i][0])
+        list1[i][0] = integer.MUL_ZM_Z(list1[i][0])     # Все коэффициенты домножаем на -1 и складываем
     return ADD_PP_P(list1, stepen1, list2, stepen2)
 
 
@@ -109,22 +117,20 @@ def DER_P_P(coefficient, power):
     # Производная многочлена
     # Аносов Павел
     for i in range(len(power)):
-        coefficient[i] = rat.MUL_QQ_Q(coefficient[i], rat.TRANS_Z_Q(power[i]))
-        power[i] = nat.SUB_NN_N(power[i], [1])
+        coefficient[i] = rat.MUL_QQ_Q(coefficient[i], rat.TRANS_Z_Q(power[i]))  # Коэффициенты домножаем на степени
+        power[i] = nat.SUB_NN_N(power[i], [1])                                  # Степени уменьшаем на единицу
     return coefficient, power
 
 
 def DIV_PP_P(coefficient1, power1, coefficient2, power2):
+    # Деление многочленов
+    # Аносов Павел
     new_power = []
     new_coefficient = []
     while nat.DIV_NN_N(power1, power2) >= 0:
         new_power.append(nat.DIV_NN_N(power1, power2))
         new_coefficient.append(rat.DIV_QQ_Q(coefficient1, coefficient2))
-        coefficient1, power1 = SUB_PP_P(coefficient1, power1, new_power, new_coefficient)
-    return new_coefficient, new_power
+        coefficient1, power1 = SUB_PP_P(coefficient1, power1, MUL_PP_P(coefficient1, power1, new_power, new_coefficient))
 
-# [1, 2, 3, 5]  1235
-# ['-', 1, 2, 4]  -124
-# [['-', 2, 3], [6, 4]]
-# [[['-', 1, 2], [4, 5]], [1, 2], [1]]] [[2], [0]]
+    return new_coefficient, new_power
 

@@ -1,12 +1,18 @@
 import natural as nat
 import integer as integer
 
+# How numbers are represented:
+# [['-', 1, 2], [2, 3]]  -12/23
+# [[4, 5], [1]] 45
+# [[0], [1]] 0
+# Numerator is integer, denominator is natural
+
 
 def RED_Q_Q(Q):
     # Гурьянов Савелий
     # Сокращение дроби
     if integer.POZ_Z_D(Q[0]):
-        nod = nat.GCF_NN_N(integer.ABS_Z_N(Q[0]), integer.ABS_Z_N(Q[1]))
+        nod = nat.GCF_NN_N(integer.ABS_Z_N(Q[0]), integer.ABS_Z_N(Q[1]))   # Делим числитель и знаменатель на их НОД
         Q[0] = integer.DIV_ZZ_Z(Q[0], nod)
         Q[1] = integer.DIV_ZZ_Z(Q[1], nod)
         return Q
@@ -34,8 +40,8 @@ def DIV_QQ_Q(rational1, rational2):
     result = [[0], [0]]
     result[0] = integer.MUL_ZZ_Z(rational1[0], rational2[1])  # умножение числителя на знаменатель
     result[1] = integer.MUL_ZZ_Z(rational1[1], rational2[0])  # умножение знаменателя на числитель
-    if integer.POZ_Z_D(result[0]) == '-' and integer.POZ_Z_D(result[1]) == '-':
-        result[0] = integer.MUL_ZM_Z(result[0])
+    if integer.POZ_Z_D(result[0]) == '-' and integer.POZ_Z_D(result[1]) == '-':     # Если и числитель и знаменатель
+        result[0] = integer.MUL_ZM_Z(result[0])                                     # с минусами, то сокращаем их
         result[1] = integer.MUL_ZM_Z(result[1])
     elif integer.POZ_Z_D(result[1]) == '-':
         result[1] = integer.ABS_Z_N(result[1])
@@ -65,15 +71,15 @@ def TRANS_Q_Z(x):
 def SUB_QQ_Q(list1, list2):
     # Дашкин Дамир
     # Вычитание дробей
-    list2[0] = integer.MUL_ZM_Z(list2[0])
+    list2[0] = integer.MUL_ZM_Z(list2[0])       # Умножаем числитель второй дроби на -1 и складываем
     return ADD_QQ_Q(list1, list2)
 
 
 def INT_Q_B(A):
     # Аносов Павел
     # Проверка на целое
-    if nat.MOD_NN_N(integer.ABS_Z_N(A[0]), A[1]) == [0]:
-        return True
+    if nat.MOD_NN_N(integer.ABS_Z_N(A[0]), A[1]) == [0]:    # Проверка остатка от деления первого числа на второе
+        return True                                         # Если ноль - число целое
     else:
         return False
 

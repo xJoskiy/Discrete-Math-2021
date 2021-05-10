@@ -8,12 +8,16 @@ import polynome as pol
 def PolToStr(list_result, list_stepen):
     seq = ''
     for i in range(len(list_result)):
+        if list_result[i][0] == [0]:
+            list_result.pop(i)
+            list_stepen.pop(i)
+    for i in range(len(list_result)):
         for j in range(len(list_result[i])):
             for k in range(len(list_result[i][j])):
                 if list_result[i][j][k] != '-':
                     list_result[i][j][k] = chr(list_result[i][j][k] + 48)
                 seq = seq + list_result[i][j][k]
-            if j == 0:
+            if not j:
                 seq = seq + '/'
         seq = seq + 'x'
     i = 0
@@ -31,13 +35,13 @@ def PolToStr(list_result, list_stepen):
         if seq[i] == 'x':
             flag += 1
         if flag == tmp and seq[i] == 'x':
-            stroka = ''
+            string = ''
             for t in range(len((list_stepen[tmp]))):
                 list_stepen[tmp][t] = chr(list_stepen[tmp][t] + 48)
-                stroka = stroka + list_stepen[tmp][t]
-            if stroka != '1' and stroka != '0':
-                seq = seq[:i + 1] + '^' + stroka + seq[i + 1:]
-            elif stroka == '0':
+                string = string + list_stepen[tmp][t]
+            if string != '1' and string != '0':
+                seq = seq[:i + 1] + '^' + string + seq[i + 1:]
+            elif string == '0':
                 seq = seq[:len(seq) - 1]
             tmp += 1
         i += 1
@@ -93,7 +97,7 @@ def StrToPol(seq):
                     p = 0
                 coefficient.append([mas[j:i], [1]])
             else:
-                if p == 1 and j != 0:
+                if p == 1 and not j:
                     j = t - 1
                     p = 0
                 coefficient.append([mas[j:k], mas[k + 1:i]])
@@ -438,7 +442,7 @@ def open_window_rat_red():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(RatToStr(rat.TRANS_Q_Z(StrToRat(values['dig1']))))
+            window['out'].update(RatToStr(rat.TRANS_Q_Z(rat.RED_Q_Q(StrToRat(values['dig1'])))))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -453,9 +457,12 @@ def open_window_pol_sum():
     ]
     window = sg.Window('The sum of polynomials', layout, size=(460, 260), resizable=True)
     while True:
-        event, values = window.read(pol.ADD_PP_P(StrToPol(values['dig1']), StrToPol(values['dig2'])))
+        event, values = window.read()
         if event == "start":
-            window['out'].update()
+            k1, p1 = StrToPol(values['dig1'])
+            k2, p2 = StrToPol(values['dig2'])
+            coefficient, power = pol.ADD_PP_P(k1, p1, k2, p2)
+            window['out'].update(PolToStr(coefficient, power))
         if event == sg.WINDOW_CLOSED:
             break
 

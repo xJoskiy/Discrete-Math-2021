@@ -3,6 +3,38 @@ import rational as rat
 import integer
 
 
+def ADD_PP_P(x, xs, y, ys):
+    # Кривоконь Максим
+    # Сложение многочленов
+    i = 0
+    res = []
+    if len(xs)>len(ys):  # Находим максимальную длину полинома
+        lenght = len(xs)
+    else:
+        lenght = len(ys)
+    if len(xs) > len(ys):
+        ys.append(0)
+    elif len(xs) < len(ys):
+        xs.append(0)
+    while i != lenght:
+        if (xs[i] > ys[i]) and (not (len(y) < len(ys))):
+            res.append(x[i])
+            res.append(y[i])
+        elif (xs[i] > ys[i]) and (len(y) < len(ys)):
+            res.append(x[i])
+        elif (ys[i] > xs[i]) and (not (len(x) < len(xs))):
+            res.append(y[i])
+            res.append(x[i])
+        elif (ys[i] > xs[i]) and (len(x) < len(xs)):
+            res.append(y[i])
+        elif (xs[i] == ys[i]) and (xs[i] != 0):
+            res.append(ADD_QQ_Q(x[i][0], y[i][0]))
+        i = i + 1
+    s = xs + ys
+    s = sorted(s, reverse=True)  # Отсортированный список степеней по возрастанию
+    return [res, s]
+
+
 def MUL_PQ_P(coefficient, Q):
     # Гурьянов Савелий
     # Каждый коэффициент многочлена циклично умножается на переданное рациональное число

@@ -8,6 +8,52 @@ import integer
 # [ [ ['-', 1, 2], [4, 5] ], [ [1, 2], [1] ], [ ['-', 6], [1] ] ] : [ [1, 1], [4], [0] ]   -12/45x^12x^4-6
 
 
+def ADD_PP_P(x, xs, y, ys):
+    # Кривоконь Максим
+    # Сложение многочленов
+    i = h = g = 0
+    res = []
+    if len(xs)>len(ys):  # Находим максимальную длину полинома
+        lenght = len(xs)
+    else:
+        lenght = len(ys)
+    while len(xs) > len(ys):
+        ys.append(0)
+        g = g + 1
+        flag = 1
+    while  len(xs) < len(ys):
+        xs.append(0)
+        h = h + 1
+        flag = 2
+    while i != lenght:
+        if (xs[i] > ys[i]) and (not (len(y) < len(ys))):
+            res.append(x[i])
+            res.append(y[i])
+        elif (xs[i] > ys[i]) and (len(y) < len(ys)):
+            res.append(x[i])
+        elif (ys[i] > xs[i]) and (not (len(x) < len(xs))):
+            res.append(y[i])
+            res.append(x[i])
+        elif (ys[i] > xs[i]) and (len(x) < len(xs)):
+            res.append(y[i])
+        elif (xs[i] == ys[i]) and (xs[i] != 0):
+            res.append(ADD_QQ_Q(x[i][0], y[i][0]))
+        i = i + 1
+    if flag == 1:
+        del ys[(len(ys)-g):]
+    elif flag == 2:
+        del xs[(len(xs) - g):]
+
+    s = xs + ys
+    s = sorted(s, reverse=True)  # Отсортированный список степеней по возрастанию
+    ss = []
+    i = 0
+    while (i != len(s)):
+        ss.append([s[i]])
+        i = i + 1
+    return res, ss
+
+
 def MUL_PQ_P(coefficient, Q):
     # Гурьянов Савелий
     # Каждый коэффициент многочлена циклично умножается на переданное рациональное число

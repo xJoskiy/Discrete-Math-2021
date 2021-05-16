@@ -9,8 +9,11 @@ def PolToStr(list_result, list_stepen):
     seq = ''
     for i in range(len(list_result)):
         if list_result[i][0] == [0]:
-            list_result.pop(i)
-            list_stepen.pop(i)
+            if len(list_result) == 1:
+                return '0'
+            else:
+                list_result.pop(i)
+                list_stepen.pop(i)
     for i in range(len(list_result)):
         for j in range(len(list_result[i])):
             for k in range(len(list_result[i][j])):
@@ -479,7 +482,10 @@ def open_window_pol_sub():
     while True:
         event, values = window.read()
         if event == "start":
-            window['out'].update(int(values['dig1']) + int(values['dig2']))
+            k1, p1 = StrToPol(values['dig1'])
+            k2, p2 = StrToPol(values['dig2'])
+            coefficient, power = pol.SUB_PP_P(k1, p1, k2, p2)
+            window['out'].update(PolToStr(coefficient, power))
         if event == sg.WINDOW_CLOSED:
             break
 
@@ -510,7 +516,7 @@ def open_window_pol_quot():
         [sg.Input(key='dig1')],
         [sg.Button('/', key='start')],
         [sg.Input(key='dig2')],
-        [sg.Text(size=(400, 10), key='out')]
+        [sg.Text(size=(188, 100), key='out')]
     ]
     window = sg.Window('The quotient of polynomials', layout, size=(460, 260), resizable=True)
     while True:
@@ -518,7 +524,7 @@ def open_window_pol_quot():
         if event == "start":
             k1, p1 = StrToPol(values['dig1'])
             k2, p2 = StrToPol(values['dig2'])
-            coefficient, power = pol.D(k1, p1, k2, p2)
+            coefficient, power = pol.DIV_PP_P(k1, p1, k2, p2)
             window['out'].update(PolToStr(coefficient, power))
         if event == sg.WINDOW_CLOSED:
             break

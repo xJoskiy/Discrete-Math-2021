@@ -108,16 +108,18 @@ def DIV_NN_N(a, b):
     # Аносов Павел
     # Частное от деления большего натурального числа на меньшее или равное натуральное с остатком
     count = 0
-    if not NZER_N_B(a) and not NZER_N_B(b):
+    if not NZER_N_B(b):
         while True:
             if COM_NN_D(a, b) != 1:
-                a = SUB_NN_N(a, b)
-                count += 1
+                quot = DIV_NN_Dk(a, b.copy())
+                sub = MUL_Nk_N(quot, b.copy())
+                a = SUB_NN_N(a, sub)
+                count += 10**quot
             else:
                 break
     else:
         return ["Unable to calculate"]
-    return list(map(int, (str(count))))
+    return list(map(int, str(count)))
 
 
 def MUL_Nk_N(k, list0):
@@ -151,9 +153,9 @@ def DIV_NN_Dk(N1, N2):
     # Целочисленное деление натуральных чисел осуществляется при помощи функции MUL_Nk_N
     # Переменная k, ответственная за целую часть от деления, изначально равная 0, инкрементируется,
     # пока N1 больше произведения k на N2
-    if COM_NN_D(N1, N2) == 2:
+    if COM_NN_D(N1, N2) != 1:
         k = 1
-        while N1 > MUL_Nk_N(k, N2):
+        while COM_NN_D(N1, MUL_Nk_N(k, N2.copy())) == 2:
             k += 1
         return k - 1
     else:
